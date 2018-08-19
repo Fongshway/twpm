@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bb36441829c433fadd05eae994ebfcafcdb35415c2449b77a9040f747353d7ea"
+            "sha256": "215a91cc9c4cf530617cca11d87671fc6f2824a44eb370e0cc9891ee64cda966"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -43,12 +43,25 @@
             ],
             "version": "==1.11.0"
         },
+        "tasklib": {
+            "hashes": [
+                "sha256:dcc4755ec81d0238d669282b444d5d52c0424d340ac7d456af4d87f75d2d7153"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
+        },
         "taskw": {
             "hashes": [
                 "sha256:fadd8afc12df026c3c2d39b633c55d3337f7dca95602fce2239455a048bc85fe"
             ],
             "index": "pypi",
             "version": "==1.2.0"
+        },
+        "tzlocal": {
+            "hashes": [
+                "sha256:4ebeb848845ac898da6519b9b31879cf13b6626f7184c496037b818e238f2c4e"
+            ],
+            "version": "==1.5.1"
         }
     },
     "develop": {
