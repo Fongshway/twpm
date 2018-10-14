@@ -1,10 +1,4 @@
-from __future__ import print_function
-
-import os
-
 from setuptools import setup
-
-here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
     name='twpm',
