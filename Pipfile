@@ -9,6 +9,7 @@ tasklib = "*"
 
 [dev-packages]
 pytest = "*"
+yapf = "*"
 
 [requires]
 python_version = "3.6"
