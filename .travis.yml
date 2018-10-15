@@ -1,3 +1,13 @@
 language: python
 python:
   - "3.6"
+before_install:
+  - sudo apt-get update -qq
+  - pip install pip
+  - pip install pipenv
+install: pipenv install --deploy
+script: pytest -v twpm tests
+notifications:
+  email: true
+    on_success: change
+    on_failure: always
