@@ -4,10 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-taskw = "*"
 tasklib = "*"
+twpm = {editable = true, path = "."}
 
 [dev-packages]
+pylint = "*"
 pytest = "*"
 yapf = "*"
 
