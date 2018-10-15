@@ -1,10 +1,10 @@
-from twpm import test_hook
+from twpm.hooks.test_hook import main
 
 
 def run(event):
     # Load task and taskwarrior instance
 
     # Run all active hooks
-    test_hook.main()
+    main()
 
     # Export the final task after all active hooks have run
