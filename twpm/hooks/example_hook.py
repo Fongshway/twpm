@@ -2,8 +2,10 @@
 
 import re
 
+from taskw.task import Task
 
-def main(task):
+
+def main(task: Task):
     print()
     original = task['description']
     task['description'] = re.sub(r'\b(tw-\d+)\b',

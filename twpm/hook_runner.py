@@ -1,6 +1,9 @@
 import json
 import sys
 
+from taskw import TaskWarrior
+from taskw.task import Task
+
 from twpm.hooks import example_hook
 
 
@@ -14,7 +17,9 @@ def on_modify_runner():
 
 def run(event):
     # Load task and Taskwarrior instance
-    hook_task = json.loads(sys.stdin.readline())
+    tw = TaskWarrior()
+    udas = tw.config.get_udas()
+    hook_task = Task(json.loads(sys.stdin.readline()), udas)
 
     # Run all active hooks
     example_hook.main(hook_task)
