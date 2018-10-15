@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='twpm',
@@ -13,9 +13,15 @@ setup(
         'pytest'
     ],
     description='Plugin manager for Taskwarrior',
-    packages=['twpm'],
+    packages=find_packages(exclude=('tests',)),
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6"
     ],
+    entry_points={
+        'console_scripts': [
+            'on-add-twpm=twpm.on_add_twpm:main',
+            'on-modify-twpm=twpm.on_modify_twpm:main',
+        ],
+    }
 )
