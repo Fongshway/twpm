@@ -1,0 +1,15 @@
+sudo: required
+dist: trusty
+language: python
+python:
+  - "3.6"
+before_install:
+  - sudo apt-get -qq update
+  - pip install pip==18.1
+  - pip install pipenv==2018.10.13
+install: pipenv install --deploy
+script: pytest -v twpm tests
+notifications:
+  email: true
+    on_success: change
+    on_failure: always
