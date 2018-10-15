@@ -7,7 +7,7 @@ before_install:
   - sudo apt-get update -qq
   - pip install pip==18.1
   - pip install pipenv==2018.10.13
-install: pipenv install --deploy
+install: pipenv install --deploy --dev
 script: pytest -v twpm tests
 notifications:
   email:
