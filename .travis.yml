@@ -7,7 +7,3 @@ before_install:
   - pip install pipenv
 install: pipenv install --deploy
 script: pytest -v twpm tests
-notifications:
-  email: true
-    on_success: change
-    on_failure: always
