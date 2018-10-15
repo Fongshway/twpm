@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'on-add-twpm=twpm.hook_runner:on_add_runner',
-            'on-modify-twpm=twpm.on_modify_twpm:on_modify_runner',
+            'on-modify-twpm=twpm.hook_runner:on_modify_runner',
         ],
     }
 )
