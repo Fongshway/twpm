@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='twpm',
@@ -13,7 +13,7 @@ setup(
         'pytest'
     ],
     description='Plugin manager for Taskwarrior',
-    packages=['twpm'],
+    packages=find_packages(exclude=('tests',)),
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6"
