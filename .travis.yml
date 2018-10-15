@@ -5,8 +5,8 @@ python:
   - "3.6"
 before_install:
   - sudo apt-get update -qq
-  - pip install pip
-  - pip install pipenv
+  - pip install pip==18.1
+  - pip install pipenv==2018.10.13
 install: pipenv install --deploy
 script: pytest -v twpm tests
 notifications:
