@@ -18,4 +18,10 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6"
     ],
+    entry_points={
+        'console_scripts': [
+            'on-add-twpm=twpm.on_add_twpm:main',
+            'on-modify-twpm=twpm.on_modify_twpm:main',
+        ],
+    }
 )
