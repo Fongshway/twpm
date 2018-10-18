@@ -40,7 +40,7 @@ def run(event):
 
     # Export the final task after all active hooks have run
     # print(json.dumps(hook_task))
-    print(json.dumps(hook_task.serialized(), separators=(',', ':')))
+    print(to_output(hook_task.serialized()))
 
     # Exit
     sys.exit(0)
