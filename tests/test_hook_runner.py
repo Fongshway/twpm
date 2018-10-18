@@ -1,5 +1,3 @@
-from taskw.task import Task
-
 from twpm import hook_runner
 
 

@@ -2,6 +2,7 @@ import json
 import sys
 
 from taskw import TaskWarrior
+from taskw.fields import ArrayField
 from taskw.task import Task
 
 from twpm.hooks import example_hook
@@ -19,9 +20,11 @@ def to_output(task: dict) -> str:
     """
     Convert  Task object instance to JSON
     """
-    # if 'tags' in task:
-    if task['tags']:
-        task['tags'] = ','.join(task['tags'])
+    fields = Task.FIELDS.copy()
+
+    for k, v in task.items():
+        if isinstance(fields[k], ArrayField):
+            task[k] = ','.join(v)
 
     return json.dumps(task, separators=(',', ':'))
 
