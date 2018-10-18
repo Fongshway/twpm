@@ -3,10 +3,22 @@ sudo: required
 language: python
 python:
   - "3.6"
+env:
+  - TASKWARRIOR=v2.5.0
+  - TASKWARRIOR=v2.5.1
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-get install -y python-dev cmake build-essential libgnutls28-dev uuid-dev gnutls-bin chrpath libssl-dev libfontconfig1-dev
   - pip install pip==18.1
   - pip install pipenv==2018.10.13
+  - git clone https://github.com/GothenburgBitFactory/taskwarrior.git
+  - cd taskwarrior
+  - git checkout $TASKWARRIOR
+  - cmake .
+  - make
+  - sudo make install
+  - task --version
+  - cd ../
 install: pipenv install --deploy --dev
 script: pytest -v twpm tests
 notifications:
