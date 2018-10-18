@@ -18,7 +18,7 @@ def on_modify_runner():
 
 def to_output(task: dict) -> str:
     """
-    Convert  Task object instance to JSON
+    Convert serialized task representation to hook output JSON
     """
     fields = Task.FIELDS.copy()
 
