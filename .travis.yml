@@ -21,7 +21,7 @@ before_install:
   - cd ../
 install: pipenv install --deploy --dev
 script:
-  - ./bin/yapf-test-runner
+  - ./bin/yapf-linter
   - ./bin/pylint-runner
   - pytest -v twpm tests
 notifications:
