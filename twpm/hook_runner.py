@@ -1,3 +1,7 @@
+"""
+Hook runner
+"""
+
 import json
 import sys
 
@@ -9,10 +13,16 @@ from twpm.hooks import example_hook
 
 
 def on_add_runner():
+    """
+    task on-add hook entry point.
+    """
     run('on_add')
 
 
 def on_modify_runner():
+    """
+    task on-modify hook entry point.
+    """
     run('on_modify')
 
 
@@ -30,6 +40,9 @@ def to_output(task: dict) -> str:
 
 
 def run(event):
+    """
+    Main twpm hook runner entry point.
+    """
     # Load task and Taskwarrior instance
     tw = TaskWarrior()
     udas = tw.config.get_udas()
