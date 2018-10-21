@@ -1,0 +1,10 @@
+#!/bin/bash
+# https://github.com/pytest-dev/pytest
+# pytest runner script.
+set -e
+
+function run()
+{
+    pytest -v twpm tests
+}
+run
