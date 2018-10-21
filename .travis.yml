@@ -23,7 +23,7 @@ install: pipenv install --deploy --dev
 script:
   - ./bin/yapf-linter
   - ./bin/pylint-runner
-  - ./pytest-runner
+  - ./bin/pytest-runner
 notifications:
   email:
     on_success: change
