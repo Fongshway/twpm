@@ -1,3 +1,7 @@
+# pylint: disable=missing-docstring
+"""
+Hook runner tests
+"""
 from twpm import hook_runner
 
 

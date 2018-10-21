@@ -1,0 +1,10 @@
+#!/bin/bash
+# https://github.com/PyCQA/pylint
+# pylint runner script.
+set -e
+
+function run()
+{
+    pylint twpm tests
+}
+run
