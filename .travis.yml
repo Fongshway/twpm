@@ -20,7 +20,9 @@ before_install:
   - task --version
   - cd ../
 install: pipenv install --deploy --dev
-script: pytest -v twpm tests
+script:
+  - ./bin/yapf-test-runner
+  - pytest -v twpm tests
 notifications:
   email:
     on_success: change

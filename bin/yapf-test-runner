@@ -1,0 +1,13 @@
+#!/bin/bash
+# https://github.com/google/yapf
+# yapf style check test runner script.
+set -e
+
+function run()
+{
+    yapf \
+        --diff \
+        --recursive \
+        twpm tests
+}
+run

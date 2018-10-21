@@ -1,0 +1,14 @@
+#!/bin/bash
+# https://github.com/google/yapf
+# yapf formatter script.
+set -e
+
+function run()
+{
+    yapf \
+        --in-place \
+        --recursive \
+        twpm tests
+}
+
+run
