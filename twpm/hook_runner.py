@@ -40,6 +40,7 @@ def to_output(task: dict) -> str:
 
 
 def run(event):
+    # pylint: disable=unused-argument
     """
     Main twpm hook runner entry point.
     """
