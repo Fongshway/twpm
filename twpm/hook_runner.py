@@ -16,44 +16,59 @@ def on_add_runner():
     """
     task on-add hook entry point.
     """
-    run('on_add')
+    runner = HookRunner('on_add')
+    runner.run()
 
 
 def on_modify_runner():
     """
     task on-modify hook entry point.
     """
-    run('on_modify')
+    runner = HookRunner('on_modify')
+    runner.run()
 
 
-def to_output(task: dict) -> str:
-    """
-    Convert serialized task representation to hook output JSON
-    """
-    fields = Task.FIELDS.copy()
+class HookRunner:
 
-    for k, v in task.items():
-        if isinstance(fields[k], ArrayField):
-            task[k] = ','.join(v)
+    def __init__(self, event, tw=TaskWarrior()):
+        self.event = event
+        self.tw = tw
 
-    return json.dumps(task, separators=(',', ':'))
+    def from_input(self) -> Task:
+        """
+        Load task from input
+        :return: hook_task
+        """
+        udas = self.tw.config.get_udas()
+        hook_task = Task(json.loads(sys.stdin.readline()), udas)
+        return hook_task
 
+    @staticmethod
+    def to_output(task: dict) -> str:
+        """
+        Convert serialized task representation to hook output JSON
+        """
+        fields = Task.FIELDS.copy()
 
-def run(event):
-    # pylint: disable=unused-argument
-    """
-    Main twpm hook runner entry point.
-    """
-    # Load task and Taskwarrior instance
-    tw = TaskWarrior()
-    udas = tw.config.get_udas()
-    hook_task = Task(json.loads(sys.stdin.readline()), udas)
+        for k, v in task.items():
+            if isinstance(fields[k], ArrayField):
+                task[k] = ','.join(v)
 
-    # Run all active hooks
-    example_hook.main(hook_task)
+        return json.dumps(task, separators=(',', ':'))
 
-    # Export the final task after all active hooks have run
-    print(to_output(hook_task.serialized()))
+    def run(self):
+        # pylint: disable=unused-argument
+        """
+        Main twpm hook runner entry point.
+        """
+        # Load task from hook input
+        input_task = self.from_input()
 
-    # Exit
-    sys.exit(0)
+        # Run all active hooks
+        example_hook.main(input_task)
+
+        # Export the final task after all active hooks have run
+        print(self.to_output(input_task))
+
+        # Exit
+        sys.exit(0)
