@@ -29,8 +29,17 @@ def on_modify_runner():
 
 
 class HookRunner:
+    """
+    Hook runner
+    """
 
     def __init__(self, event, tw=TaskWarrior()):
+        """
+        Create an instance of HookRunner
+
+        :param event: Hook event type
+        :param tw: Taskwarrior instance
+        """
         self.event = event
         self.tw = tw
 
