@@ -10,7 +10,6 @@ from copy import deepcopy
 import pytest
 from taskw import TaskWarrior
 
-from twpm import hook_runner
 from twpm.hook_runner import HookRunner
 
 
