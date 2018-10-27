@@ -16,10 +16,7 @@ from twpm.hook_runner import HookRunner
 @pytest.fixture
 def default_taskrc_path():
     """ Path to default taskrc resource """
-    path_to_default_taskrc = os.path.join(
-        os.path.dirname(__file__),
-        'resources/default.taskrc'
-    )
+    path_to_default_taskrc = os.path.join(os.path.dirname(__file__), 'resources/default.taskrc')
     yield path_to_default_taskrc
 
 
@@ -27,10 +24,7 @@ def default_taskrc_path():
 def tw(default_taskrc_path):
     """ TaskWarrior instance that uses default.taskrc"""
     taskdata = tempfile.mkdtemp()
-    tw = TaskWarrior(
-        config_filename=default_taskrc_path,
-        config_overrides={'data.location': taskdata}
-    )
+    tw = TaskWarrior(config_filename=default_taskrc_path, config_overrides={'data.location': taskdata})
     yield tw
     shutil.rmtree(taskdata)
 
