@@ -43,16 +43,16 @@ class HookRunner:
         self.event = event
         self.tw = tw
 
-    def from_input(self) -> Task:
+    def from_input(self, hook_input=sys.stdin) -> Task:
         """
         Load task from input
         :return: hook_task
         """
         udas = self.tw.config.get_udas()
         if self.event == 'on_modify':
-            task = Task.from_input(modify=True, udas=udas)
+            task = Task.from_input(hook_input, modify=True, udas=udas)
             return task
-        task = Task.from_input(modify=False, udas=udas)
+        task = Task.from_input(hook_input, modify=False, udas=udas)
         return task
 
     @staticmethod
