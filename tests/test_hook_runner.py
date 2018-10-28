@@ -20,20 +20,23 @@ def test_from_input(tw):
         '"status":"pending",'
         '"start":"20181012T110605Z",'
         '"uuid":"daa3ff05-f716-482e-bc35-3e1601e50778"'
-        '}')
+        '}'
+    )
     input_modify_data = six.StringIO(
-        '\n'.join([
-            input_add_data.getvalue(),
-            (
-                '{'
-                '"description":"Go to Camelot again",'
-                '"entry":"20180618T030242Z",'
-                '"status":"pending",'
-                '"start":"20181012T110605Z",'
-                '"uuid":"daa3ff05-f716-482e-bc35-3e1601e50778"'
-                '}'
-            ),
-        ]),
+        '\n'.join(
+            [
+                input_add_data.getvalue(),
+                (
+                    '{'
+                    '"description":"Go to Camelot again",'
+                    '"entry":"20180618T030242Z",'
+                    '"status":"pending",'
+                    '"start":"20181012T110605Z",'
+                    '"uuid":"daa3ff05-f716-482e-bc35-3e1601e50778"'
+                    '}'
+                ),
+            ]
+        ),
     )
     on_add_runner = HookRunner('on_add', tw)
     on_add_task_actual = on_add_runner.from_input(input_add_data)
