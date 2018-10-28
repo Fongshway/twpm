@@ -49,8 +49,11 @@ class HookRunner:
         :return: hook_task
         """
         udas = self.tw.config.get_udas()
-        hook_task = Task(json.loads(sys.stdin.readline()), udas)
-        return hook_task
+        if self.event == 'on_modify':
+            task = Task.from_input(modify=True, udas=udas)
+            return task
+        task = Task.from_input(modify=False, udas=udas)
+        return task
 
     @staticmethod
     def to_output(task: dict) -> str:
