@@ -53,7 +53,7 @@
         "taskw": {
             "editable": true,
             "git": "https://github.com/Fongshway/taskw.git",
-            "ref": "b4e9d18d478e040fdb255d75df3b27463309cf1f"
+            "ref": "5ff5901007890d53e13ff37de4808558beaa9da2"
         },
         "tzlocal": {
             "hashes": [
