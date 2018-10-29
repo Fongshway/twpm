@@ -80,7 +80,7 @@ class HookRunner:
         example_hook.main(input_task)
 
         # Export the final task after all active hooks have run
-        print(self.to_output(input_task))
+        print(self.to_output(input_task.serialized()))
 
         # Exit
         sys.exit(0)
