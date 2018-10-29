@@ -16,44 +16,71 @@ def on_add_runner():
     """
     task on-add hook entry point.
     """
-    run('on_add')
+    runner = HookRunner('on_add')
+    runner.run()
 
 
 def on_modify_runner():
     """
     task on-modify hook entry point.
     """
-    run('on_modify')
+    runner = HookRunner('on_modify')
+    runner.run()
 
 
-def to_output(task: dict) -> str:
+class HookRunner:
     """
-    Convert serialized task representation to hook output JSON
+    Hook runner
     """
-    fields = Task.FIELDS.copy()
 
-    for k, v in task.items():
-        if isinstance(fields[k], ArrayField):
-            task[k] = ','.join(v)
+    def __init__(self, event, tw=TaskWarrior()):
+        """
+        Create an instance of HookRunner
 
-    return json.dumps(task, separators=(',', ':'))
+        :param event: Hook event type
+        :param tw: Taskwarrior instance
+        """
+        self.event = event
+        self.tw = tw
 
+    def from_input(self, hook_input=sys.stdin) -> Task:
+        """
+        Load task from input
+        :return: hook_task
+        """
+        udas = self.tw.config.get_udas()
+        if self.event == 'on_modify':
+            task = Task.from_input(hook_input, modify=True, udas=udas)
+            return task
+        task = Task.from_input(hook_input, modify=False, udas=udas)
+        return task
 
-def run(event):
-    # pylint: disable=unused-argument
-    """
-    Main twpm hook runner entry point.
-    """
-    # Load task and Taskwarrior instance
-    tw = TaskWarrior()
-    udas = tw.config.get_udas()
-    hook_task = Task(json.loads(sys.stdin.readline()), udas)
+    @staticmethod
+    def to_output(task: dict) -> str:
+        """
+        Convert serialized task representation to hook output JSON
+        """
+        fields = Task.FIELDS.copy()
 
-    # Run all active hooks
-    example_hook.main(hook_task)
+        for k, v in task.items():
+            if isinstance(fields[k], ArrayField):
+                task[k] = ','.join(v)
 
-    # Export the final task after all active hooks have run
-    print(to_output(hook_task.serialized()))
+        return json.dumps(task, separators=(',', ':'))
 
-    # Exit
-    sys.exit(0)
+    def run(self) -> None:
+        # pylint: disable=unused-argument
+        """
+        Main twpm hook runner entry point.
+        """
+        # Load task from hook input
+        input_task = self.from_input()
+
+        # Run all active hooks
+        example_hook.main(input_task)
+
+        # Export the final task after all active hooks have run
+        print(self.to_output(input_task.serialized()))
+
+        # Exit
+        sys.exit(0)

@@ -19,6 +19,7 @@ before_install:
   - sudo make install
   - task --version
   - cd ../
+  - touch /home/travis/.taskrc
 install: pipenv install --deploy --dev
 script:
   - ./bin/yapf-linter
