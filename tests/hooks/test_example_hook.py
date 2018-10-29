@@ -8,7 +8,7 @@ def test_example_hook():
         {
             "status": "pending",
             "description": "Fix tw-98765",
-            "tags": "in",
+            "tags": ["in"],
             "modified": "20181015T054805Z",
             "entry": "20181015T054805Z",
             "uuid": "cee8cefa-0b9d-432c-a7da-cd68f50466bf"
