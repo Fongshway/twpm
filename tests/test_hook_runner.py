@@ -49,6 +49,10 @@ def test_from_input(tw):
     on_modify_runner = HookRunner('on_modify', tw)
     on_modify_task_actual = on_modify_runner.from_input(input_modify_data)
     assert on_modify_task_actual['description'] == "Go to Camelot again"
+    assert on_modify_task_actual['entry'] == datetime.datetime(2018, 6, 18, 3, 2, 42, tzinfo=tzutc())
+    assert on_modify_task_actual['status'] == "pending"
+    assert on_modify_task_actual['start'] == datetime.datetime(2018, 10, 12, 11, 6, 5, tzinfo=tzutc())
+    assert on_modify_task_actual['uuid'] == uuid.UUID("daa3ff05-f716-482e-bc35-3e1601e50778")
 
 
 def test_to_output(tw):
