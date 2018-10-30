@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# mypy runner script.
+# https://mypy.readthedocs.io/en/latest/index.html
+
+set -e
+
+function run()
+{
+    mypy --config-file mypy.ini twpm
+}
+
+run
