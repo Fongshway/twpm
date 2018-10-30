@@ -1,3 +1,7 @@
+# pylint: disable=missing-docstring
+"""
+Inbox tag hook tests
+"""
 from taskw.task import Task
 
 from twpm.hooks import inbox_tag_hook

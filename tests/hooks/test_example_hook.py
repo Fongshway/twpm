@@ -1,3 +1,7 @@
+# pylint: disable=missing-docstring
+"""
+Example hook tests
+"""
 from taskw.task import Task
 
 from twpm.hooks import example_hook
