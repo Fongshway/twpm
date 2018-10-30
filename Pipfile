@@ -8,6 +8,7 @@ tasklib = "*"
 taskw = {editable = true, ref = "fongshway/hook-constructor", git = "https://github.com/Fongshway/taskw.git"}
 
 [dev-packages]
+mypy = "*"
 pylint = "*"
 pytest = "*"
 yapf = "*"
