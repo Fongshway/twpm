@@ -5,6 +5,12 @@ from taskw.task import Task
 
 
 def main(task: Task) -> None:
+    """
+    Inbox tag hook entry point.
+
+    :param task: Task instance
+    :return: None
+    """
     # Handle case when task has no context tags and no inbox tag.
     if not any('@' in t for t in task['tags']) and u'in' not in task['tags']:
         print('Task has no context tag - inbox tag will be applied')
