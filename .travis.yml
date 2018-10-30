@@ -22,6 +22,7 @@ before_install:
   - touch /home/travis/.taskrc
 install: pipenv install --deploy --dev
 script:
+  - ./bin/mypy-runner
   - ./bin/yapf-linter
   - ./bin/pylint-runner
   - ./bin/pytest-runner

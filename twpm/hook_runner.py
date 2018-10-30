@@ -4,6 +4,7 @@ Hook runner
 
 import json
 import sys
+from typing import IO
 
 from taskw import TaskWarrior
 from taskw.fields import ArrayField
@@ -12,7 +13,7 @@ from taskw.task import Task
 from twpm.hooks import example_hook
 
 
-def on_add_runner():
+def on_add_runner() -> None:
     """
     task on-add hook entry point.
     """
@@ -20,7 +21,7 @@ def on_add_runner():
     runner.run()
 
 
-def on_modify_runner():
+def on_modify_runner() -> None:
     """
     task on-modify hook entry point.
     """
@@ -33,7 +34,7 @@ class HookRunner:
     Hook runner
     """
 
-    def __init__(self, event, tw=TaskWarrior()):
+    def __init__(self, event: str, tw: TaskWarrior = TaskWarrior()) -> None:
         """
         Create an instance of HookRunner
 
@@ -43,7 +44,7 @@ class HookRunner:
         self.event = event
         self.tw = tw
 
-    def from_input(self, hook_input=sys.stdin) -> Task:
+    def from_input(self, hook_input: IO[str] = sys.stdin) -> Task:
         """
         Load task from input
         :return: hook_task
