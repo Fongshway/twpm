@@ -41,6 +41,7 @@ pip-delete-this-directory.txt
 .coverage
 .coverage.*
 .hypothesis/
+.mypy_cache/
 .pytest_cache/
 .tox/
 coverage.xml
