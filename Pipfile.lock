@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "630c206ddcdd471f17afc328908c27d97e6f5f224dd234b18a79293c5e8a5c71"
+            "sha256": "e83d0a3631fa87d9d420f37e6ad6caee2aa4dcb69b736246962ef8c1cdab68db"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -52,8 +52,8 @@
         },
         "taskw": {
             "editable": true,
-            "git": "https://github.com/Fongshway/taskw.git",
-            "ref": "5ff5901007890d53e13ff37de4808558beaa9da2"
+            "git": "https://github.com/ralphbean/taskw.git",
+            "ref": "11e2f9132eaedd157f514538de9b5f3b69c30a52"
         },
         "tzlocal": {
             "hashes": [
@@ -180,11 +180,11 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:a9e5e8d7ab9d5b0747f37740276eb362e6a76275d76cebbb52c6049d93b475db",
-                "sha256:bf47e8ed20d03764f963f0070ff1c8fda6e2671fc5dd562a4d3b7148ad60f5ca"
+                "sha256:630ff1dbe04f469ee78faa5660f712e58b953da7df22ea5d828c9012e134da43",
+                "sha256:a2b5232735dd0b736cbea9c0f09e5070d78fcaba2823a4f6f09d9a81bd19415c"
             ],
             "index": "pypi",
-            "version": "==3.9.3"
+            "version": "==3.10.0"
         },
         "six": {
             "hashes": [
