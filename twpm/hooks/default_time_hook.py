@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from datetime import time
 
-import dateutil
+from dateutil import tz
 from taskw.task import Task
 
 logger = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ def is_local_midnight(timestamp: datetime) -> bool:
     :param timestamp:
     :return: Boolean indicating if the datetime is midnight in local time.
     """
-    return timestamp.astimezone(dateutil.tz.tzlocal()).time() == time(0, 0, 0)
+    return timestamp.astimezone(tz.tzlocal()).time() == time(0, 0, 0)
 
 
 def set_default_time(timestamp: datetime) -> datetime:
