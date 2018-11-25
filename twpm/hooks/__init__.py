@@ -1,3 +1,3 @@
 """
-Taskwarrior hooks
+Taskwarrior hooks.
 """

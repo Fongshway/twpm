@@ -1,6 +1,6 @@
 # pylint: disable=missing-docstring
 """
-Hook runner tests
+Hook runner tests.
 """
 import uuid
 from copy import deepcopy

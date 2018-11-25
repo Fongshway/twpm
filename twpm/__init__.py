@@ -1,5 +1,5 @@
 """
-Plugin Manager for Taskwarrior
+Plugin Manager for Taskwarrior.
 """
 from twpm.logger import Logger
 

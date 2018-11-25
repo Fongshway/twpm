@@ -1,5 +1,5 @@
 """
-Hook to help flag tasks without a context
+Hook to help flag tasks without a context.
 """
 import logging
 
