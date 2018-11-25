@@ -20,10 +20,7 @@ NOW = datetime.now()
 
 def test_default_time_midnight():
     due_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=LOCAL_TZ) + timedelta(days=2)
-    due_date_serialized = due_date.astimezone(pytz.utc).strftime(DATE_FORMAT)
-
     wait_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=LOCAL_TZ) + timedelta(days=1)
-    wait_date_serialized = wait_date.astimezone(pytz.utc).strftime(DATE_FORMAT)
 
     test_task = Task(
         {
@@ -32,8 +29,8 @@ def test_default_time_midnight():
             "tags": ["@work"],
             "modified": NOW.strftime(DATE_FORMAT),
             "entry": NOW.strftime(DATE_FORMAT),
-            "due": due_date_serialized,
-            "wait": wait_date_serialized,
+            "due": due_date.astimezone(pytz.utc).strftime(DATE_FORMAT),
+            "wait": wait_date.astimezone(pytz.utc).strftime(DATE_FORMAT),
             "uuid": str(uuid.uuid4())
         }
     )
@@ -47,6 +44,7 @@ def test_default_time_midnight():
 def test_default_time_not_midnight():
     due_date = NOW.replace(second=1, microsecond=0) + timedelta(days=2)
     wait_date = NOW.replace(second=1, microsecond=0) + timedelta(days=1)
+
     test_task = Task(
         {
             "status": "pending",
