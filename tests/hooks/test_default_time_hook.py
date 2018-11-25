@@ -60,5 +60,5 @@ def test_default_time_not_midnight():
         }
     )
     default_time_hook.main(test_task)
-    assert test_task['due'] == due_date
-    assert test_task['wait'] == wait_date
+    assert test_task['due'] == due_date.replace(tzinfo=tzutc())
+    assert test_task['wait'] == wait_date.replace(tzinfo=tzutc())
