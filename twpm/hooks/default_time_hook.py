@@ -1,5 +1,5 @@
 """
-Hook to set default timestamps when setting dates
+Hook to set default timestamps when setting dates.
 """
 import logging
 from datetime import datetime
