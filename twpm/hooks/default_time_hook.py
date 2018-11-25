@@ -14,6 +14,12 @@ DEFAULT_TIME = time(23, 59, 59)  # Your wanted default time
 
 
 def is_local_midnight(timestamp: datetime) -> bool:
+    """
+    Helper function to evaluate whether or not a dateime is midnight in local time.
+
+    :param timestamp:
+    :return: Boolean indicating if the datetime is midnight in local time.
+    """
     return timestamp.astimezone(dateutil.tz.tzlocal()).time() == time(0, 0, 0)
 
 
