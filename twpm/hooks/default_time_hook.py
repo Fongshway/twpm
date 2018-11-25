@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 DEFAULT_TIME = time(23, 59, 59)  # Your wanted default time
 
 
-def is_local_midnight(timestamp):
+def is_local_midnight(timestamp: datetime) -> bool:
     return timestamp.astimezone(dateutil.tz.tzlocal()).time() == time(0, 0, 0)
 
 
