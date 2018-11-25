@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 
 from dateutil.tz import tzutc
 from taskw.task import Task
+from taskw.utils import DATE_FORMAT
 
 from twpm.hooks import default_time_hook
 from twpm.hooks.default_time_hook import DEFAULT_TIME
@@ -22,10 +23,10 @@ def test_default_time_midnight():
             "status": "pending",
             "description": "Super urgent test task",
             "tags": ["@work"],
-            "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
-            "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
-            "due": due_date.strftime("%Y%m%dT%H%M%SZ"),
-            "wait": wait_date.strftime("%Y%m%dT%H%M%SZ"),
+            "modified": NOW.strftime(DATE_FORMAT),
+            "entry": NOW.strftime(DATE_FORMAT),
+            "due": due_date.strftime(DATE_FORMAT),
+            "wait": wait_date.strftime(DATE_FORMAT),
             "uuid": str(uuid.uuid4())
         }
     )
@@ -44,10 +45,10 @@ def test_default_time_not_midnight():
             "status": "pending",
             "description": "Super urgent test task",
             "tags": ["@work"],
-            "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
-            "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
-            "due": due_date.strftime("%Y%m%dT%H%M%SZ"),
-            "wait": wait_date.strftime("%Y%m%dT%H%M%SZ"),
+            "modified": NOW.strftime(DATE_FORMAT),
+            "entry": NOW.strftime(DATE_FORMAT),
+            "due": due_date.strftime(DATE_FORMAT),
+            "wait": wait_date.strftime(DATE_FORMAT),
             "uuid": str(uuid.uuid4())
         }
     )
