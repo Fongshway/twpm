@@ -35,10 +35,18 @@ def test_default_time_midnight():
         }
     )
     default_time_hook.main(test_task)
-    expected_due = due_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second, tzinfo=tzutc())
-    expected_wait = wait_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second, tzinfo=tzutc())
-    assert test_task['due'] == expected_due
-    assert test_task['wait'] == expected_wait
+    assert test_task['due'] == due_date.replace(
+        hour=DEFAULT_TIME.hour,
+        minute=DEFAULT_TIME.minute,
+        second=DEFAULT_TIME.second,
+        tzinfo=tzutc(),
+    )
+    assert test_task['wait'] == wait_date.replace(
+        hour=DEFAULT_TIME.hour,
+        minute=DEFAULT_TIME.minute,
+        second=DEFAULT_TIME.second,
+        tzinfo=tzutc(),
+    )
 
 
 def test_default_time_not_midnight():
