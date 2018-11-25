@@ -5,13 +5,12 @@ Default time hook tests
 import uuid
 from datetime import datetime, timedelta
 
-import pytz
+from dateutil.tz import tzutc
 from taskw.task import Task
 
 from twpm.hooks import default_time_hook
 
-
-NOW = datetime.now().replace(tzinfo=pytz.UTC)
+NOW = datetime.now().replace(tzinfo=tzutc())
 
 
 def test_default_time_hook():
@@ -26,7 +25,5 @@ def test_default_time_hook():
             "uuid": str(uuid.uuid4())
         }
     )
-
     default_time_hook.main(test_task)
-
-    assert test_task['due'] == datetime(2016, 11, 26, 23, 59, 59)
+    assert test_task['due'] == datetime(2018, 11, 26, 23, 59, 59, tzinfo=tzutc())
