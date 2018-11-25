@@ -5,19 +5,25 @@ Default time hook tests
 import uuid
 from datetime import datetime, timedelta
 
-from dateutil.tz import tzutc
+import dateutil
+import pytz
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
 
 from twpm.hooks import default_time_hook
 from twpm.hooks.default_time_hook import DEFAULT_TIME
 
-NOW = datetime.now().replace(tzinfo=tzutc())
+LOCAL_TZ = dateutil.tz.tzlocal()
+NOW = datetime.now()
 
 
 def test_default_time_midnight():
-    due_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=2)
-    wait_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+    due_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=LOCAL_TZ) + timedelta(days=2)
+    due_date_serialized = due_date.astimezone(pytz.utc).strftime(DATE_FORMAT)
+
+    wait_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=LOCAL_TZ) + timedelta(days=1)
+    wait_date_serialized = wait_date.astimezone(pytz.utc).strftime(DATE_FORMAT)
+
     test_task = Task(
         {
             "status": "pending",
@@ -25,8 +31,8 @@ def test_default_time_midnight():
             "tags": ["@work"],
             "modified": NOW.strftime(DATE_FORMAT),
             "entry": NOW.strftime(DATE_FORMAT),
-            "due": due_date.strftime(DATE_FORMAT),
-            "wait": wait_date.strftime(DATE_FORMAT),
+            "due": due_date_serialized,
+            "wait": wait_date_serialized,
             "uuid": str(uuid.uuid4())
         }
     )
