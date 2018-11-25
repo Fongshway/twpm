@@ -1,6 +1,6 @@
 # pylint: disable=missing-docstring
 """
-Inbox tag hook tests
+Inbox tag hook tests.
 """
 import uuid
 from datetime import datetime

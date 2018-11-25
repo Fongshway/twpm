@@ -1,6 +1,6 @@
 # pylint: disable=missing-docstring
 """
-Default time hook tests
+Default time hook tests.
 """
 import uuid
 from datetime import datetime

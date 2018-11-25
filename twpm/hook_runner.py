@@ -1,5 +1,5 @@
 """
-Hook runner
+Hook runner.
 """
 import json
 import logging
@@ -37,12 +37,12 @@ def on_modify_runner() -> None:
 
 class HookRunner:
     """
-    Hook runner
+    Hook runner.
     """
 
     def __init__(self, event: str, tw: TaskWarrior = TaskWarrior()) -> None:
         """
-        Create an instance of HookRunner
+        Create an instance of HookRunner.
 
         :param event: Hook event type
         :param tw: Taskwarrior instance
@@ -52,8 +52,10 @@ class HookRunner:
 
     def from_input(self, hook_input: Union[IO[str], six.StringIO] = sys.stdin) -> Task:
         """
-        Load task from input
-        :return: hook_task
+        Load task from input.
+
+        :param hook_input: Taskwarrior JSON
+        :return: Deserialized task
         """
         udas = self.tw.config.get_udas()
         if self.event == 'on_modify':
@@ -65,7 +67,8 @@ class HookRunner:
     @staticmethod
     def to_output(task: dict) -> str:
         """
-        Convert serialized task representation to Taskwarrior JSON hook output format.
+        Convert serialized task representation to Taskwarrior JSON hook output
+        format.
 
         :param task: serialized task
         :return: Taskwarrior JSON

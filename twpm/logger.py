@@ -1,5 +1,5 @@
 """
-Log things for logging purposes
+Log things for logging purposes.
 """
 import logging
 import sys
@@ -11,7 +11,7 @@ DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 class Logger:
     """
-    Logger
+    Logger.
     """
 
     def __init__(self, logger_name: str, log_level: Union[int, str] = logging.INFO) -> None:
