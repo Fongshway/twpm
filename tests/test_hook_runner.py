@@ -2,14 +2,17 @@
 """
 Hook runner tests
 """
-import datetime
 import uuid
 from copy import deepcopy
+from datetime import datetime
 
 import six
 from dateutil.tz import tzutc
+from taskw.utils import DATE_FORMAT
 
 from twpm.hook_runner import HookRunner
+
+NOW = datetime.now().replace(tzinfo=tzutc())
 
 
 def test_from_input(tw):
@@ -41,37 +44,40 @@ def test_from_input(tw):
     on_add_runner = HookRunner('on_add', tw)
     on_add_task_actual = on_add_runner.from_input(input_add_data)
     assert on_add_task_actual['description'] == "Go to Camelot"
-    assert on_add_task_actual['entry'] == datetime.datetime(2018, 6, 18, 3, 2, 42, tzinfo=tzutc())
+    assert on_add_task_actual['entry'] == datetime(2018, 6, 18, 3, 2, 42, tzinfo=tzutc())
     assert on_add_task_actual['status'] == "pending"
-    assert on_add_task_actual['start'] == datetime.datetime(2018, 10, 12, 11, 6, 5, tzinfo=tzutc())
+    assert on_add_task_actual['start'] == datetime(2018, 10, 12, 11, 6, 5, tzinfo=tzutc())
     assert on_add_task_actual['uuid'] == uuid.UUID("daa3ff05-f716-482e-bc35-3e1601e50778")
 
     on_modify_runner = HookRunner('on_modify', tw)
     on_modify_task_actual = on_modify_runner.from_input(input_modify_data)
     assert on_modify_task_actual['description'] == "Go to Camelot again"
-    assert on_modify_task_actual['entry'] == datetime.datetime(2018, 6, 18, 3, 2, 42, tzinfo=tzutc())
+    assert on_modify_task_actual['entry'] == datetime(2018, 6, 18, 3, 2, 42, tzinfo=tzutc())
     assert on_modify_task_actual['status'] == "pending"
-    assert on_modify_task_actual['start'] == datetime.datetime(2018, 10, 12, 11, 6, 5, tzinfo=tzutc())
+    assert on_modify_task_actual['start'] == datetime(2018, 10, 12, 11, 6, 5, tzinfo=tzutc())
     assert on_modify_task_actual['uuid'] == uuid.UUID("daa3ff05-f716-482e-bc35-3e1601e50778")
 
 
 def test_to_output(tw):
+    test_uuid = str(uuid.uuid4())
     serialized_task = {
         'status': 'pending',
         'description': 'Fix tw-98765',
         'tags': ['in', 'next'],
-        'modified': '20181018T050328Z',
-        'entry': '20181018T050328Z',
-        'uuid': 'd1b29100-3ee1-462e-b59e-4b570398b2d6'
+        'modified': NOW.strftime(DATE_FORMAT),
+        'entry': NOW.strftime(DATE_FORMAT),
+        'uuid': test_uuid
     }
-    expected_output = '{' \
-        '"status":"pending",' \
-        '"description":"Fix tw-98765",' \
-        '"tags":"in,next",' \
-        '"modified":"20181018T050328Z",' \
-        '"entry":"20181018T050328Z",' \
-        '"uuid":"d1b29100-3ee1-462e-b59e-4b570398b2d6"' \
+    expected_output = "".join([
+        '{',
+        '"status":"pending",',
+        '"description":"Fix tw-98765",',
+        '"tags":"in,next",',
+        '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+        '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+        '"uuid":"{}"'.format(test_uuid),
         '}'
+    ])
 
     on_add_runner = HookRunner('on_add', tw)
     on_modify_runner = HookRunner('on_modify', tw)

@@ -1,18 +1,18 @@
 """
 Hook runner
 """
-
 import json
 import logging
 import sys
-from typing import IO
+from typing import IO, Union
 
+import six
 from taskw import TaskWarrior
 from taskw.fields import ArrayField
 from taskw.task import Task
 
-from twpm.hooks import example_hook
 from twpm.hooks import default_time_hook
+from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
 
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ class HookRunner:
         self.event = event
         self.tw = tw
 
-    def from_input(self, hook_input: IO[str] = sys.stdin) -> Task:
+    def from_input(self, hook_input: Union[IO[str], six.StringIO] = sys.stdin) -> Task:
         """
         Load task from input
         :return: hook_task
