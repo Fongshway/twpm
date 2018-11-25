@@ -69,7 +69,8 @@ class HookRunner:
         fields = Task.FIELDS.copy()
 
         for k, v in task.items():
-            if isinstance(fields[k], ArrayField):
+            value = fields.get(k, None)
+            if isinstance(value, ArrayField):
                 task[k] = ','.join(v)
 
         return json.dumps(task, separators=(',', ':'))
