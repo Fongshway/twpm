@@ -2,6 +2,7 @@
 Hook to set default timestamps when setting dates
 """
 import logging
+from datetime import datetime
 from datetime import time
 
 from taskw.task import Task
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 DEFAULT_TIME = time(23, 59, 59)  # Your wanted default time
 
 
-def set_default_time(timestamp):
+def set_default_time(timestamp: datetime) -> datetime:
     return timestamp.replace(
         hour=DEFAULT_TIME.hour,
         minute=DEFAULT_TIME.minute,
