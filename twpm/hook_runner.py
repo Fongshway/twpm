@@ -3,6 +3,7 @@ Hook runner
 """
 
 import json
+import logging
 import sys
 from typing import IO
 
@@ -11,6 +12,8 @@ from taskw.fields import ArrayField
 from taskw.task import Task
 
 from twpm.hooks import example_hook
+
+logger = logging.getLogger(__name__)
 
 
 def on_add_runner() -> None:
@@ -70,7 +73,6 @@ class HookRunner:
         return json.dumps(task, separators=(',', ':'))
 
     def run(self) -> None:
-        # pylint: disable=unused-argument
         """
         Main twpm hook runner entry point.
         """
@@ -81,7 +83,7 @@ class HookRunner:
         example_hook.main(input_task)
 
         # Export the final task after all active hooks have run
-        print(self.to_output(input_task.serialized()))
+        logger.info(self.to_output(input_task.serialized()))
 
         # Exit
         sys.exit(0)
