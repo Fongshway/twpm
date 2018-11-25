@@ -68,16 +68,18 @@ def test_to_output(tw):
         'entry': NOW.strftime(DATE_FORMAT),
         'uuid': test_uuid
     }
-    expected_output = "".join([
-        '{',
-        '"status":"pending",',
-        '"description":"Fix tw-98765",',
-        '"tags":"in,next",',
-        '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-        '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-        '"uuid":"{}"'.format(test_uuid),
-        '}'
-    ])
+    expected_output = "".join(
+        [
+            '{',
+            '"status":"pending",',
+            '"description":"Fix tw-98765",',
+            '"tags":"in,next",',
+            '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+            '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+            '"uuid":"{}"'.format(test_uuid),
+            '}',
+        ]
+    )
 
     on_add_runner = HookRunner('on_add', tw)
     on_modify_runner = HookRunner('on_modify', tw)
@@ -100,17 +102,19 @@ def test_to_output_uda(tw):
         'reviewed': NOW.strftime(DATE_FORMAT),
         'uuid': test_uuid
     }
-    expected_output = "".join([
-        '{',
-        '"status":"pending",',
-        '"description":"Fix tw-98765",',
-        '"tags":"in,next",',
-        '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-        '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-        '"reviewed":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-        '"uuid":"{}"'.format(test_uuid),
-        '}'
-    ])
+    expected_output = "".join(
+        [
+            '{',
+            '"status":"pending",',
+            '"description":"Fix tw-98765",',
+            '"tags":"in,next",',
+            '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+            '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+            '"reviewed":"{}",'.format(NOW.strftime(DATE_FORMAT)),
+            '"uuid":"{}"'.format(test_uuid),
+            '}',
+        ]
+    )
 
     on_add_runner = HookRunner('on_add', tw)
     on_modify_runner = HookRunner('on_modify', tw)
