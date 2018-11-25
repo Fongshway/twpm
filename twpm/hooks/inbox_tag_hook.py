@@ -17,13 +17,10 @@ def main(task: Task) -> None:
     """
     task_tags = task.get('tags', [])
 
-    # Exit hook if task has no tags
-    if not task_tags:
-        return
-
     # Handle case when task has no context tags and no inbox tag.
     if not any('@' in t for t in task_tags) and "in" not in task_tags:
-        task['tags'].append('in')
+        task_tags.append('in')
+        task['tags'] = task_tags
         logger.info("Task had no context tag - inbox tag has be applied")
 
     # Handle case when task has context tag and inbox tag.
