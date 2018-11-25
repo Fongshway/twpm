@@ -27,16 +27,30 @@ def set_default_time(timestamp: datetime) -> datetime:
 
 
 def main(task: Task) -> None:
+    # pylint: disable=fixme
     """
     Default time hook entry point.
 
     :param task: Task instance
     :return: None
     """
-    if task['due'] and task['due'].time() == time(0, 0, 0):
+    # TODO Expose ability to set dates to apply hook to in .taskrc (e.g. twpm.hook.dates = due,wait)
+    task_due_date = task.get('due', None)
+
+    # Exit hook if task has no due date
+    if not task_due_date:
+        return
+
+    if task_due_date.time() == time(0, 0, 0):
         task['due'] = set_default_time(task['due'])
         logger.info("Default due time has been set to %s", task['due'])
 
-    if task['wait'] and task['wait'].time() == time(0, 0, 0):
+    task_due_wait = task.get('wait', None)
+
+    # Exit hook if task has no wait date
+    if not task_due_wait:
+        return
+
+    if task_due_wait.time() == time(0, 0, 0):
         task['wait'] = set_default_time(task['wait'])
         logger.info("Default wait time has been set to %s", task['wait'])
