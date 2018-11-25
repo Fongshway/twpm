@@ -27,6 +27,7 @@ def set_default_time(timestamp: datetime) -> datetime:
 
 
 def main(task: Task) -> None:
+    # pylint: disable=fixme
     """
     Default time hook entry point.
 
