@@ -1,9 +1,12 @@
 """
 Example hook adapted from https://taskwarrior.org/docs/hooks_guide.html.
 """
+import logging
 import re
 
 from taskw.task import Task
+
+logger = logging.getLogger(__name__)
 
 
 def main(task: Task) -> None:
@@ -13,7 +16,6 @@ def main(task: Task) -> None:
     :param task: Task instance
     :return: None
     """
-    print()
     original = task['description']
     task['description'] = re.sub(
         r'\b(tw-\d+)\b',
@@ -23,4 +25,4 @@ def main(task: Task) -> None:
     )
 
     if original != task['description']:
-        print('Link added')
+        logger.info("Link added")
