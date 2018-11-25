@@ -4,7 +4,8 @@ Hook runner
 import json
 import logging
 import sys
-from typing import IO, Union
+from typing import IO
+from typing import Union
 
 import six
 from taskw import TaskWarrior
