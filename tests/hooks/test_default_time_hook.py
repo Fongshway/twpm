@@ -30,7 +30,7 @@ def test_default_time_hook():
         }
     )
     default_time_hook.main(test_task)
-    expected_due_date = due_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second)
-    expected_wait_date = wait_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second)
-    assert test_task['due'] == expected_due_date
-    assert test_task['wait'] == expected_wait_date
+    expected_due = due_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second)
+    expected_wait = wait_date.replace(hour=DEFAULT_TIME.hour, minute=DEFAULT_TIME.minute, second=DEFAULT_TIME.second)
+    assert test_task['due'] == expected_due
+    assert test_task['wait'] == expected_wait
