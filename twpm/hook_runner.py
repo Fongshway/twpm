@@ -75,6 +75,7 @@ class HookRunner:
         return json.dumps(task, separators=(',', ':'))
 
     def run(self) -> None:
+        # pylint: disable=fixme
         """
         Main twpm hook runner entry point.
         """
