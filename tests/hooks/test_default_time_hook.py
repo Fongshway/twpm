@@ -14,7 +14,7 @@ from twpm.hooks.default_time_hook import DEFAULT_TIME
 NOW = datetime.now().replace(tzinfo=tzutc())
 
 
-def test_default_time_hook_midnight():
+def test_default_time_midnight():
     due_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=2)
     wait_date = NOW.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
     test_task = Task(
@@ -36,7 +36,7 @@ def test_default_time_hook_midnight():
     assert test_task['wait'] == expected_wait
 
 
-def test_default_time_hook_not_midnight():
+def test_default_time_not_midnight():
     due_date = NOW.replace(second=1, microsecond=0) + timedelta(days=2)
     wait_date = NOW.replace(second=1, microsecond=0) + timedelta(days=1)
     test_task = Task(
