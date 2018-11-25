@@ -2,20 +2,26 @@
 """
 Example hook tests
 """
+import uuid
+from datetime import datetime
+
+from dateutil.tz import tzutc
 from taskw.task import Task
 
 from twpm.hooks import example_hook
 
+NOW = datetime.now().replace(tzinfo=tzutc())
 
-def test_example_hook():
+
+def test_example():
     test_task = Task(
         {
             "status": "pending",
             "description": "Fix tw-98765",
             "tags": ["in"],
-            "modified": "20181015T054805Z",
-            "entry": "20181015T054805Z",
-            "uuid": "cee8cefa-0b9d-432c-a7da-cd68f50466bf"
+            "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "uuid": str(uuid.uuid4())
         }
     )
 

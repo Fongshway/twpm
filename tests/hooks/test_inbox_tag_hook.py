@@ -2,20 +2,26 @@
 """
 Inbox tag hook tests
 """
+import uuid
+from datetime import datetime
+
+from dateutil.tz import tzutc
 from taskw.task import Task
 
 from twpm.hooks import inbox_tag_hook
 
+NOW = datetime.now().replace(tzinfo=tzutc())
 
-def test_inbox_tag_hook_add():
+
+def test_inbox_tag_add():
     test_task = Task(
         {
             "description": "test task 1",
             "status": "pending",
             "tags": ["tag1", "tag2"],
-            "modified": "20181015T054805Z",
-            "entry": "20181015T054805Z",
-            "uuid": "cee8cefa-0b9d-432c-a7da-cd68f50466bf"
+            "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "uuid": str(uuid.uuid4())
         }
     )
 
@@ -25,15 +31,15 @@ def test_inbox_tag_hook_add():
     assert test_task['tags'] == ["tag1", "tag2", "in"]
 
 
-def test_inbox_tag_hook_remove():
+def test_inbox_tag_remove():
     test_task = Task(
         {
             "description": "test task 2",
             "status": "pending",
             "tags": ["@context", "tag1", "in"],
-            "modified": "20181015T054805Z",
-            "entry": "20181015T054805Z",
-            "uuid": "cee8cefa-0b9d-432c-a7da-cd68f50466bf"
+            "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
+            "uuid": str(uuid.uuid4())
         }
     )
 
