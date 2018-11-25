@@ -1,18 +1,19 @@
 """
 Hook runner
 """
-
 import json
 import logging
 import sys
 from typing import IO
+from typing import Union
 
+import six
 from taskw import TaskWarrior
 from taskw.fields import ArrayField
 from taskw.task import Task
 
-from twpm.hooks import example_hook
 from twpm.hooks import default_time_hook
+from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
 
 logger = logging.getLogger(__name__)
@@ -49,7 +50,7 @@ class HookRunner:
         self.event = event
         self.tw = tw
 
-    def from_input(self, hook_input: IO[str] = sys.stdin) -> Task:
+    def from_input(self, hook_input: Union[IO[str], six.StringIO] = sys.stdin) -> Task:
         """
         Load task from input
         :return: hook_task
@@ -64,12 +65,16 @@ class HookRunner:
     @staticmethod
     def to_output(task: dict) -> str:
         """
-        Convert serialized task representation to hook output JSON
+        Convert serialized task representation to Taskwarrior JSON hook output format.
+
+        :param task: serialized task
+        :return: Taskwarrior JSON
         """
         fields = Task.FIELDS.copy()
 
         for k, v in task.items():
-            if isinstance(fields[k], ArrayField):
+            value = fields.get(k, None)
+            if isinstance(value, ArrayField):
                 task[k] = ','.join(v)
 
         return json.dumps(task, separators=(',', ':'))
