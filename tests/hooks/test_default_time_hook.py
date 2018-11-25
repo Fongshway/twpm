@@ -3,7 +3,7 @@
 Default time hook tests
 """
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 from taskw.task import Task
@@ -22,11 +22,11 @@ def test_default_time_hook():
             "tags": ["@work"],
             "modified": NOW.strftime("%Y%m%dT%H%M%SZ"),
             "entry": NOW.strftime("%Y%m%dT%H%M%SZ"),
-            "due": datetime(2018, 11, 25, 0, 0, 0).replace(tzinfo=pytz.UTC).strftime("%Y%m%dT%H%M%SZ"),
+            "due": (NOW.replace(hour=0, minute=0, second=0) + timedelta(days=2)).strftime("%Y%m%dT%H%M%SZ"),
             "uuid": str(uuid.uuid4())
         }
     )
 
     default_time_hook.main(test_task)
 
-    assert test_task['description'] == "Fix https://github.com/GothenburgBitFactory/taskwarrior/issues/tw-98765"
+    assert test_task['due'] == datetime(2016, 11, 26, 23, 59, 59)
