@@ -64,7 +64,10 @@ class HookRunner:
     @staticmethod
     def to_output(task: dict) -> str:
         """
-        Convert serialized task representation to hook output JSON
+        Convert serialized task representation to Taskwarrior JSON hook output format.
+
+        :param task: serialized task
+        :return: Taskwarrior JSON
         """
         fields = Task.FIELDS.copy()
 
