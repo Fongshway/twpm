@@ -3,10 +3,11 @@
 Default time hook tests
 """
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 
-import dateutil
 import pytz
+from dateutil import tz
 from dateutil.tz import tzutc
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
@@ -14,7 +15,7 @@ from taskw.utils import DATE_FORMAT
 from twpm.hooks import default_time_hook
 from twpm.hooks.default_time_hook import DEFAULT_TIME
 
-LOCAL_TZ = dateutil.tz.tzlocal()
+LOCAL_TZ = tz.tzlocal()
 NOW = datetime.now()
 
 
