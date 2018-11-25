@@ -26,7 +26,10 @@ def main(task: Task) -> None:
     :param task: Task instance
     :return: None
     """
-    due_date = task['due']
-    if due_date and due_date.time() == time(0, 0, 0):
+    if task['due'] and task['due'].time() == time(0, 0, 0):
         task['due'] = set_default_time(task['due'])
-        logger.info("Default due time has been set to %s", due_date)
+        logger.info("Default due time has been set to %s", task['due'])
+
+    if task['wait'] and task['wait'].time() == time(0, 0, 0):
+        task['wait'] = set_default_time(task['wait'])
+        logger.info("Default due time has been set to %s", task['wait'])
