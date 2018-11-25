@@ -5,11 +5,22 @@ import logging
 from datetime import datetime
 from datetime import time
 
+from dateutil import tz
 from taskw.task import Task
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_TIME = time(23, 59, 59)  # Your wanted default time
+
+
+def is_local_midnight(timestamp: datetime) -> bool:
+    """
+    Helper function to evaluate whether or not a dateime is midnight in local time.
+
+    :param timestamp:
+    :return: Boolean indicating if the datetime is midnight in local time.
+    """
+    return timestamp.astimezone(tz.tzlocal()).time() == time(0, 0, 0)
 
 
 def set_default_time(timestamp: datetime) -> datetime:
@@ -41,16 +52,16 @@ def main(task: Task) -> None:
     if not task_due_date:
         return
 
-    if task_due_date.time() == time(0, 0, 0):
+    if task_due_date.time() and is_local_midnight(task_due_date):
         task['due'] = set_default_time(task['due'])
         logger.info("Default due time has been set to %s", task['due'])
 
-    task_due_wait = task.get('wait', None)
+    task_wait_date = task.get('wait', None)
 
     # Exit hook if task has no wait date
-    if not task_due_wait:
+    if not task_wait_date:
         return
 
-    if task_due_wait.time() == time(0, 0, 0):
+    if task_wait_date.time() and is_local_midnight(task_wait_date):
         task['wait'] = set_default_time(task['wait'])
         logger.info("Default wait time has been set to %s", task['wait'])
