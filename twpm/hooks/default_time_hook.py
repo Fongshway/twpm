@@ -32,4 +32,4 @@ def main(task: Task) -> None:
 
     if task['wait'] and task['wait'].time() == time(0, 0, 0):
         task['wait'] = set_default_time(task['wait'])
-        logger.info("Default due time has been set to %s", task['wait'])
+        logger.info("Default wait time has been set to %s", task['wait'])
