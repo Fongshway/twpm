@@ -2,6 +2,10 @@
 """
 Default time hook tests
 """
+import uuid
+from datetime import datetime
+
+import pytz
 from taskw.task import Task
 
 from twpm.hooks import default_time_hook
@@ -11,11 +15,12 @@ def test_default_time_hook():
     test_task = Task(
         {
             "status": "pending",
-            "description": "Fix tw-98765",
-            "tags": ["in"],
-            "modified": "20181015T054805Z",
-            "entry": "20181015T054805Z",
-            "uuid": "cee8cefa-0b9d-432c-a7da-cd68f50466bf"
+            "description": "Super urgent test task",
+            "tags": ["@work"],
+            "modified": (datetime.now().replace(tzinfo=pytz.UTC)).strftime("%Y%m%dT%H%M%SZ"),
+            "entry": (datetime.now().replace(tzinfo=pytz.UTC)).strftime("%Y%m%dT%H%M%SZ"),
+            "due": datetime(2018, 11, 25, 0, 0, 0).replace(tzinfo=pytz.UTC).strftime("%Y%m%dT%H%M%SZ"),
+            "uuid": str(uuid.uuid4())
         }
     )
 
