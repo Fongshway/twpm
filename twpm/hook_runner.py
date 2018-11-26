@@ -24,6 +24,7 @@ def on_add_runner() -> None:
     task on-add hook entry point.
     """
     runner = HookRunner('on_add')
+    logger.debug("Running on-add hooks")
     runner.run()
 
 
@@ -32,6 +33,7 @@ def on_modify_runner() -> None:
     task on-modify hook entry point.
     """
     runner = HookRunner('on_modify')
+    logger.debug("Running on-modify hooks")
     runner.run()
 
 
