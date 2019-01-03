@@ -96,7 +96,10 @@ def test_to_output_uda(tw):
     test_uuid = str(uuid.uuid4())
     test_task = Task(
         {
-            'annotations': [{'entry': '20190103T051020Z', 'description': 'yoooooo'}],
+            'annotations': [{
+                'entry': '20190103T051020Z',
+                'description': 'yoooooo'
+            }],
             'status': 'pending',
             'description': 'Fix tw-98765',
             'tags': ['in', 'next'],
