@@ -96,6 +96,7 @@ def test_to_output_uda(tw):
     test_uuid = str(uuid.uuid4())
     test_task = Task(
         {
+            'annotations': [{'entry': '20190103T051020Z', 'description': 'yoooooo'}],
             'status': 'pending',
             'description': 'Fix tw-98765',
             'tags': ['in', 'next'],
@@ -108,6 +109,7 @@ def test_to_output_uda(tw):
     expected_output = "".join(
         [
             '{',
+            '"annotations":[{"entry":"20190103T051020Z","description":"yoooooo"}],',
             '"status":"pending",',
             '"description":"Fix tw-98765",',
             '"tags":"in,next",',
@@ -122,7 +124,8 @@ def test_to_output_uda(tw):
     on_add_runner = HookRunner('on_add', tw)
     on_modify_runner = HookRunner('on_modify', tw)
 
-    on_add_result = on_add_runner.to_output(test_task.serialized())
+    serialized_task = test_task.serialized()
+    on_add_result = on_add_runner.to_output(serialized_task)
     on_modify_result = on_modify_runner.to_output(test_task.serialized())
 
     assert on_add_result == expected_output
