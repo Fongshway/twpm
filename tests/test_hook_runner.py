@@ -63,38 +63,6 @@ def test_to_output(tw):
     test_uuid = str(uuid.uuid4())
     test_task = Task(
         {
-            'status': 'pending',
-            'description': 'Fix tw-98765',
-            'tags': ['in', 'next'],
-            'modified': NOW.strftime(DATE_FORMAT),
-            'entry': NOW.strftime(DATE_FORMAT),
-            'uuid': test_uuid
-        }
-    )
-    expected_output = "".join(
-        [
-            '{',
-            '"status":"pending",',
-            '"description":"Fix tw-98765",',
-            '"tags":"in,next",',
-            '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"uuid":"{}"'.format(test_uuid),
-            '}',
-        ]
-    )
-
-    on_add_result = HookRunner('on_add', tw).to_output(test_task.serialized())
-    on_modify_result = HookRunner('on_modify', tw).to_output(test_task.serialized())
-
-    assert on_add_result == expected_output
-    assert on_modify_result == expected_output
-
-
-def test_to_output_uda(tw):
-    test_uuid = str(uuid.uuid4())
-    test_task = Task(
-        {
             'annotations': [{
                 'entry': '20190103T051020Z',
                 'description': 'yoooooo'
