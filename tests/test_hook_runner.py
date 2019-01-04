@@ -124,12 +124,8 @@ def test_to_output_uda(tw):
         ]
     )
 
-    on_add_runner = HookRunner('on_add', tw)
-    on_modify_runner = HookRunner('on_modify', tw)
-
-    serialized_task = test_task.serialized()
-    on_add_result = on_add_runner.to_output(serialized_task)
-    on_modify_result = on_modify_runner.to_output(test_task.serialized())
+    on_add_result = HookRunner('on_add', tw).to_output(test_task.serialized())
+    on_modify_result = HookRunner('on_modify', tw).to_output(test_task.serialized())
 
     assert on_add_result == expected_output
     assert on_modify_result == expected_output
