@@ -61,14 +61,16 @@ def test_from_input(tw):
 
 def test_to_output(tw):
     test_uuid = str(uuid.uuid4())
-    test_task = Task({
-        'status': 'pending',
-        'description': 'Fix tw-98765',
-        'tags': ['in', 'next'],
-        'modified': NOW.strftime(DATE_FORMAT),
-        'entry': NOW.strftime(DATE_FORMAT),
-        'uuid': test_uuid
-    })
+    test_task = Task(
+        {
+            'status': 'pending',
+            'description': 'Fix tw-98765',
+            'tags': ['in', 'next'],
+            'modified': NOW.strftime(DATE_FORMAT),
+            'entry': NOW.strftime(DATE_FORMAT),
+            'uuid': test_uuid
+        }
+    )
     expected_output = "".join(
         [
             '{',
