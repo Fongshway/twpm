@@ -61,14 +61,14 @@ def test_from_input(tw):
 
 def test_to_output(tw):
     test_uuid = str(uuid.uuid4())
-    serialized_task = {
+    test_task = Task({
         'status': 'pending',
         'description': 'Fix tw-98765',
         'tags': ['in', 'next'],
         'modified': NOW.strftime(DATE_FORMAT),
         'entry': NOW.strftime(DATE_FORMAT),
         'uuid': test_uuid
-    }
+    })
     expected_output = "".join(
         [
             '{',
@@ -82,11 +82,8 @@ def test_to_output(tw):
         ]
     )
 
-    on_add_runner = HookRunner('on_add', tw)
-    on_modify_runner = HookRunner('on_modify', tw)
-
-    on_add_result = on_add_runner.to_output(deepcopy(serialized_task))
-    on_modify_result = on_modify_runner.to_output(deepcopy(serialized_task))
+    on_add_result = HookRunner('on_add', tw).to_output(test_task.serialized())
+    on_modify_result = HookRunner('on_modify', tw).to_output(test_task.serialized())
 
     assert on_add_result == expected_output
     assert on_modify_result == expected_output
