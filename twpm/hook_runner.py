@@ -9,7 +9,7 @@ from typing import Union
 
 import six
 from taskw import TaskWarrior
-from taskw.fields import ArrayField
+from taskw.fields import ArrayField, AnnotationArrayField
 from taskw.task import Task
 
 from twpm.hooks import default_time_hook
@@ -78,8 +78,8 @@ class HookRunner:
         fields = Task.FIELDS.copy()
 
         for k, v in task.items():
-            value = fields.get(k, None)
-            if isinstance(value, ArrayField):
+            field_type = fields.get(k, None)
+            if isinstance(field_type, ArrayField) and not isinstance(field_type, AnnotationArrayField):
                 task[k] = ','.join(v)
 
         return json.dumps(task, separators=(',', ':'))

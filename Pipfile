@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-taskw = {editable = true, ref = "develop", git = "https://github.com/ralphbean/taskw.git"}
+taskw = {editable = true, ref = "develop", git = "https://github.com/Fongshway/taskw.git"}
 
 [dev-packages]
 docformatter = "*"

@@ -3,11 +3,11 @@
 Hook runner tests.
 """
 import uuid
-from copy import deepcopy
 from datetime import datetime
 
 import six
 from dateutil.tz import tzutc
+from taskw.task import Task
 from taskw.utils import DATE_FORMAT
 
 from twpm.hook_runner import HookRunner
@@ -60,51 +60,25 @@ def test_from_input(tw):
 
 def test_to_output(tw):
     test_uuid = str(uuid.uuid4())
-    serialized_task = {
-        'status': 'pending',
-        'description': 'Fix tw-98765',
-        'tags': ['in', 'next'],
-        'modified': NOW.strftime(DATE_FORMAT),
-        'entry': NOW.strftime(DATE_FORMAT),
-        'uuid': test_uuid
-    }
-    expected_output = "".join(
-        [
-            '{',
-            '"status":"pending",',
-            '"description":"Fix tw-98765",',
-            '"tags":"in,next",',
-            '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"uuid":"{}"'.format(test_uuid),
-            '}',
-        ]
+    test_task = Task(
+        {
+            'annotations': [{
+                'entry': '20190103T051020Z',
+                'description': 'yoooooo'
+            }],
+            'status': 'pending',
+            'description': 'Fix tw-98765',
+            'tags': ['in', 'next'],
+            'modified': NOW.strftime(DATE_FORMAT),
+            'entry': NOW.strftime(DATE_FORMAT),
+            'reviewed': NOW.strftime(DATE_FORMAT),
+            'uuid': test_uuid
+        }
     )
-
-    on_add_runner = HookRunner('on_add', tw)
-    on_modify_runner = HookRunner('on_modify', tw)
-
-    on_add_result = on_add_runner.to_output(deepcopy(serialized_task))
-    on_modify_result = on_modify_runner.to_output(deepcopy(serialized_task))
-
-    assert on_add_result == expected_output
-    assert on_modify_result == expected_output
-
-
-def test_to_output_uda(tw):
-    test_uuid = str(uuid.uuid4())
-    serialized_task = {
-        'status': 'pending',
-        'description': 'Fix tw-98765',
-        'tags': ['in', 'next'],
-        'modified': NOW.strftime(DATE_FORMAT),
-        'entry': NOW.strftime(DATE_FORMAT),
-        'reviewed': NOW.strftime(DATE_FORMAT),
-        'uuid': test_uuid
-    }
     expected_output = "".join(
         [
             '{',
+            '"annotations":[{"entry":"20190103T051020Z","description":"yoooooo"}],',
             '"status":"pending",',
             '"description":"Fix tw-98765",',
             '"tags":"in,next",',
@@ -116,11 +90,8 @@ def test_to_output_uda(tw):
         ]
     )
 
-    on_add_runner = HookRunner('on_add', tw)
-    on_modify_runner = HookRunner('on_modify', tw)
-
-    on_add_result = on_add_runner.to_output(deepcopy(serialized_task))
-    on_modify_result = on_modify_runner.to_output(deepcopy(serialized_task))
+    on_add_result = HookRunner('on_add', tw).to_output(test_task.serialized())
+    on_modify_result = HookRunner('on_modify', tw).to_output(test_task.serialized())
 
     assert on_add_result == expected_output
     assert on_modify_result == expected_output
