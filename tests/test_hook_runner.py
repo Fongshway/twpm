@@ -3,7 +3,6 @@
 Hook runner tests.
 """
 import uuid
-from copy import deepcopy
 from datetime import datetime
 
 import six
