@@ -1,0 +1,14 @@
+#!/bin/bash
+# https://github.com/timothycrosley/isort
+# isort formatter script.
+set -e
+
+function run()
+{
+    isort \
+        --settings-path .isort.cfg \
+        --recursive \
+        twpm tests
+}
+
+run
