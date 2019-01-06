@@ -1,6 +1,7 @@
 import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
 # https://github.com/kennethreitz/setup.py
 # Package meta-data.

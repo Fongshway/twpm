@@ -9,7 +9,8 @@ from typing import Union
 
 import six
 from taskw import TaskWarrior
-from taskw.fields import ArrayField, AnnotationArrayField
+from taskw.fields import AnnotationArrayField
+from taskw.fields import ArrayField
 from taskw.task import Task
 
 from twpm.hooks import default_time_hook
