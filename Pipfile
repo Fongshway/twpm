@@ -8,6 +8,7 @@ taskw = {editable = true, ref = "develop", git = "https://github.com/Fongshway/t
 
 [dev-packages]
 docformatter = "*"
+isort = {extras = ["pipfile"], version = "*"}
 mypy = "*"
 pylint = "*"
 pytest = "*"
