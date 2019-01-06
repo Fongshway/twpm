@@ -5,6 +5,7 @@ python:
   - "3.6"
 env:
   global:
+    - PIPENV_VERBOSITY=-1
     - PYTHON_PIP_VERSION=18.1
     - PYTHON_PIPENV_VERSION=2018.11.26
   matrix:
@@ -28,6 +29,7 @@ install: pipenv install --deploy --dev
 script:
   - ./bin/mypy-runner
   - ./bin/yapf-linter
+  - ./bin/isort-linter
   - ./bin/pylint-runner
   - ./bin/pytest-runner
 notifications:

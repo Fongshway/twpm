@@ -1,0 +1,16 @@
+#!/bin/bash
+# https://github.com/timothycrosley/isort
+# isort linter script.
+set -e
+
+function run()
+{
+    isort \
+        --settings-path .isort.cfg \
+        --recursive \
+        --diff \
+        --check-only \
+        twpm tests
+}
+
+run
