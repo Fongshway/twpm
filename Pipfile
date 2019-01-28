@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+click = "*"
 taskw = {editable = true, ref = "develop", git = "https://github.com/Fongshway/taskw.git"}
 
 [dev-packages]
