@@ -7,6 +7,7 @@ import sys
 from typing import IO
 from typing import Union
 
+import click
 import six
 from taskw import TaskWarrior
 from taskw.fields import AnnotationArrayField
@@ -20,10 +21,24 @@ from twpm.hooks import inbox_tag_hook
 logger = logging.getLogger(__name__)
 
 
-def on_add_runner() -> None:
+@click.command()
+@click.argument('api', type=str)
+@click.argument('args', type=str)
+@click.argument('command', type=str)
+@click.argument('rc', type=str)
+@click.argument('data', type=str)
+@click.argument('version', type=str)
+def on_add_runner(api, args, command, rc, data, version) -> None:
     """
     task on-add hook entry point.
     """
+    print(api)
+    print(args)
+    print(command)
+    print(rc)
+    print(data)
+    print(version)
+
     runner = HookRunner('on_add')
     logger.debug("Running on-add hooks")
     runner.run()
@@ -36,6 +51,41 @@ def on_modify_runner() -> None:
     runner = HookRunner('on_modify')
     logger.debug("Running on-modify hooks")
     runner.run()
+
+
+class HookMeta:
+
+    def __init__(self, api, args, command, rc, data, version):
+        self.api = self._parse_api(api)
+        self.args = self._parse_args(args)
+        self.command = self._parse_command(command)
+        self.rc = self._parse_rc(rc)
+        self.data = self._parse_data(data)
+        self.version = self._parse_version(version)
+
+    @staticmethod
+    def _parse_api(api):
+        return api
+
+    @staticmethod
+    def _parse_args(args):
+        return args
+
+    @staticmethod
+    def _parse_command(command):
+        return command
+
+    @staticmethod
+    def _parse_rc(rc):
+        return rc
+
+    @staticmethod
+    def _parse_data(data):
+        return data
+
+    @staticmethod
+    def _parse_version(version):
+        return version
 
 
 class HookRunner:
