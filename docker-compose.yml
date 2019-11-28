@@ -1,0 +1,9 @@
+version: "3"
+services:
+  twpm:
+    container_name: twpm
+    image: fongshway/twpm:${IMAGE_TAG:-develop}
+    volumes:
+     - .:/opt/twpm
+    user: twpm
+    command: bash -c "tail -f /dev/null"
