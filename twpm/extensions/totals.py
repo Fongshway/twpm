@@ -24,6 +24,9 @@
 # https://www.opensource.org/licenses/mit-license.php
 #
 ###############################################################################
+# pylint: disable=missing-function-docstring,missing-module-docstring
+# pylint: disable=redefined-outer-name,too-many-branches,too-many-locals
+# pylint: disable=too-many-statements
 import datetime
 import json
 import sys
@@ -70,23 +73,23 @@ def calculate_totals(input_stream):
     totals = dict()
     untagged = None
     j = json.loads(body)
-    for object in j:
-        start = datetime.datetime.strptime(object["start"], DATEFORMAT)
+    for object_ in j:
+        start = datetime.datetime.strptime(object_["start"], DATEFORMAT)
 
-        if "end" in object:
-            end = datetime.datetime.strptime(object["end"], DATEFORMAT)
+        if "end" in object_:
+            end = datetime.datetime.strptime(object_["end"], DATEFORMAT)
         else:
             end = datetime.datetime.utcnow()
 
         tracked = end - start
 
-        if "tags" not in object or object["tags"] == []:
+        if "tags" not in object_ or object_["tags"] == []:
             if untagged is None:
                 untagged = tracked
             else:
                 untagged += tracked
         else:
-            for tag in object["tags"]:
+            for tag in object_["tags"]:
                 if tag in totals:
                     totals[tag] += tracked
                 else:
