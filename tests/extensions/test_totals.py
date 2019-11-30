@@ -38,19 +38,19 @@ def test_totals_with_filled_database():
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(one_hour_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]'.format(one_hour_before_utc, now_utc)
+        f'[{{"start":"{one_hour_before_utc:%Y%m%dT%H%M%S}Z","end":"{now_utc:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]',
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            'Tag        Total',
-            '----- ----------',
-            'foo      1:00:00',
-            '      ----------',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        'Tag        Total',
+        '----- ----------',
+        'foo      1:00:00',
+        '      ----------',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -71,19 +71,19 @@ def test_totals_with_time_delta_larger_than_24_hours():
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(two_days_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]'.format(two_days_before_utc, now_utc)
+        f'[{{"start":"{two_days_before_utc:%Y%m%dT%H%M%S}Z","end":"{now_utc:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]',
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(two_days_before, now),
-            '',
-            'Tag        Total',
-            '----- ----------',
-            'foo     48:00:00',
-            '      ----------',
-            'Total   48:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(two_days_before, now),
+        '',
+        'Tag        Total',
+        '----- ----------',
+        'foo     48:00:00',
+        '      ----------',
+        'Total   48:00:00',
+        '',
+    ]
 
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
@@ -123,19 +123,19 @@ def test_totals_with_interval_without_tags():
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(one_hour_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z"}}]'.format(one_hour_before_utc, now_utc)
+        f'[{{"start":"{one_hour_before_utc:%Y%m%dT%H%M%S}Z","end":"{now_utc:%Y%m%dT%H%M%S}Z"}}]',
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            'Tag        Total',
-            '----- ----------',
-            '         1:00:00',
-            '      ----------',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        'Tag        Total',
+        '----- ----------',
+        '         1:00:00',
+        '      ----------',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -154,19 +154,19 @@ def test_totals_with_interval_with_empty_tag_list():
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(one_hour_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z","tags":[]}}]'.format(one_hour_before_utc, now_utc)
+        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z","tags":[]}}]'.format(one_hour_before_utc, now_utc),
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            'Tag        Total',
-            '----- ----------',
-            '         1:00:00',
-            '      ----------',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        'Tag        Total',
+        '----- ----------',
+        '         1:00:00',
+        '      ----------',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -188,16 +188,16 @@ def test_totals_with_open_interval(self):
         '[{{"start":"{:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]'.format(one_hour_before_utc),
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            'Tag        Total',
-            '----- ----------',
-            'foo      1:00:00',
-            '      ----------',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        'Tag        Total',
+        '----- ----------',
+        'foo      1:00:00',
+        '      ----------',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -231,18 +231,18 @@ def test_totals_colored_with_filled_database(self):
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(one_hour_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]'.format(one_hour_before_utc, now_utc)
+        f'[{{"start":"{one_hour_before_utc:%Y%m%dT%H%M%S}Z","end":"{now_utc:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]',
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            '[4mTag  [0m [4m     Total[0m',
-            'foo      1:00:00',
-            '      [4m          [0m',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        '[4mTag  [0m [4m     Total[0m',
+        'foo      1:00:00',
+        '      [4m          [0m',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -282,18 +282,18 @@ def test_totals_colored_with_interval_without_tags(self):
         'temp.report.start: {:%Y%m%dT%H%M%S}Z\n'.format(one_hour_before_utc),
         'temp.report.end: {:%Y%m%dT%H%M%S}Z\n'.format(now_utc),
         '\n',
-        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z"}}]'.format(one_hour_before_utc, now_utc)
+        '[{{"start":"{:%Y%m%dT%H%M%S}Z","end":"{:%Y%m%dT%H%M%S}Z"}}]'.format(one_hour_before_utc, now_utc),
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            '[4mTag  [0m [4m     Total[0m',
-            '         1:00:00',
-            '      [4m          [0m',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        '[4mTag  [0m [4m     Total[0m',
+        '         1:00:00',
+        '      [4m          [0m',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -315,15 +315,15 @@ def test_totals_colored_with_interval_with_empty_tag_list(self):
         '[{"start":"20160101T070000Z","end":"20160101T080000Z","tags":[]}]',
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            '[4mTag  [0m [4m     Total[0m',
-            '         1:00:00',
-            '      [4m          [0m',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        '[4mTag  [0m [4m     Total[0m',
+        '         1:00:00',
+        '      [4m          [0m',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 
@@ -345,15 +345,15 @@ def test_totals_colored_with_open_interval(self):
         '[{{"start":"{:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]'.format(one_hour_before_utc),
     ]
     expected_output = [
-            '',
-            'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
-            '',
-            '[4mTag  [0m [4m     Total[0m',
-            'foo      1:00:00',
-            '      [4m          [0m',
-            'Total    1:00:00',
-            '',
-        ]
+        '',
+        'Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}'.format(one_hour_before, now),
+        '',
+        '[4mTag  [0m [4m     Total[0m',
+        'foo      1:00:00',
+        '      [4m          [0m',
+        'Total    1:00:00',
+        '',
+    ]
     actual_output = calculate_totals(input_stream)
     assert actual_output == expected_output
 

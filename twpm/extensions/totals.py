@@ -119,7 +119,7 @@ def calculate_totals(input_stream):
     output = [
         "",
         "Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}".format(start, end),
-        ""
+        "",
     ]
 
     # Compose table header.
