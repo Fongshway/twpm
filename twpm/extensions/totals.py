@@ -30,13 +30,17 @@
 import datetime
 import json
 import sys
+from typing import IO
+from typing import Any
+from typing import Dict
+from typing import List
 
 from dateutil import tz
 
 DATEFORMAT = "%Y%m%dT%H%M%SZ"
 
 
-def format_seconds(seconds):
+def format_seconds(seconds: int) -> str:
     """Convert seconds to a formatted string
 
     Convert seconds: 3661
@@ -45,10 +49,10 @@ def format_seconds(seconds):
     hours = int(seconds / 3600)
     minutes = int(seconds % 3600 / 60)
     seconds = seconds % 60
-    return "{:4d}:{:02d}:{:02d}".format(hours, minutes, seconds)
+    return f"{hours:4d}:{minutes:02d}:{seconds:02d}"
 
 
-def calculate_totals(input_stream):
+def calculate_totals(input_stream: IO) -> List[str]:
     from_zone = tz.tzutc()
     to_zone = tz.tzlocal()
 
@@ -70,7 +74,7 @@ def calculate_totals(input_stream):
             body += line
 
     # Sum the seconds tracked by tag.
-    totals = dict()
+    totals: Dict[str, datetime.timedelta] = dict()
     untagged = None
     j = json.loads(body)
     for object_ in j:
