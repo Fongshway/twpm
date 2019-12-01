@@ -2,6 +2,7 @@
 Parser for Taskwarrior data.
 """
 import json
+import re
 from io import StringIO
 
 
@@ -15,11 +16,8 @@ def parse_timewarrior_data(input_stream: StringIO) -> (dict, list):
             if line == "\n":
                 header = 0
             else:
-                fields = line.strip().split(": ", 2)
-                if len(fields) == 2:
-                    config[fields[0]] = fields[1]
-                else:
-                    config[fields[0]] = ""
+                m = re.search('^([^:]+): (.*)$', line, re.MULTILINE)
+                config[m.group(1)] = m.group(2)
         # Extract interval entries
         else:
             body += line
