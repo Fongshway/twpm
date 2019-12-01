@@ -36,6 +36,8 @@ from typing import List
 
 from dateutil import tz
 
+from twpm.extensions.parser import parse_timewarrior_data
+
 DATEFORMAT = "%Y%m%dT%H%M%SZ"
 
 
@@ -51,48 +53,30 @@ def format_seconds(seconds: int) -> str:
     return f"{hours:4d}:{minutes:02d}:{seconds:02d}"
 
 
-def calculate_totals(input_stream: IO) -> List[str]:
+def calculate_totals(config: dict, intervals: list) -> List[str]:
     from_zone = tz.tzutc()
     to_zone = tz.tzlocal()
-
-    # Extract the configuration settings.
-    header = 1
-    configuration = dict()
-    body = ""
-    for line in input_stream:
-        if header:
-            if line == "\n":
-                header = 0
-            else:
-                fields = line.strip().split(": ", 2)
-                if len(fields) == 2:
-                    configuration[fields[0]] = fields[1]
-                else:
-                    configuration[fields[0]] = ""
-        else:
-            body += line
 
     # Sum the seconds tracked by tag.
     totals: Dict[str, datetime.timedelta] = dict()
     untagged = None
-    j = json.loads(body)
-    for object_ in j:
-        start = datetime.datetime.strptime(object_["start"], DATEFORMAT)
+    for interval in intervals:
+        start = datetime.datetime.strptime(interval["start"], DATEFORMAT)
 
-        if "end" in object_:
-            end = datetime.datetime.strptime(object_["end"], DATEFORMAT)
+        if "end" in interval:
+            end = datetime.datetime.strptime(interval["end"], DATEFORMAT)
         else:
             end = datetime.datetime.utcnow()
 
         tracked = end - start
 
-        if "tags" not in object_ or object_["tags"] == []:
+        if "tags" not in interval or interval["tags"] == []:
             if untagged is None:
                 untagged = tracked
             else:
                 untagged += tracked
         else:
-            for tag in object_["tags"]:
+            for tag in interval["tags"]:
                 if tag in totals:
                     totals[tag] += tracked
                 else:
@@ -104,15 +88,15 @@ def calculate_totals(input_stream: IO) -> List[str]:
         if len(tag) > max_width:
             max_width = len(tag)
 
-    if "temp.report.start" not in configuration:
+    if "temp.report.start" not in config:
         return ["There is no data in the database"]
 
-    start_utc = datetime.datetime.strptime(configuration["temp.report.start"], DATEFORMAT)
+    start_utc = datetime.datetime.strptime(config["temp.report.start"], DATEFORMAT)
     start_utc = start_utc.replace(tzinfo=from_zone)
     start = start_utc.astimezone(to_zone)
 
-    if "temp.report.end" in configuration:
-        end_utc = datetime.datetime.strptime(configuration["temp.report.end"], DATEFORMAT)
+    if "temp.report.end" in config:
+        end_utc = datetime.datetime.strptime(config["temp.report.end"], DATEFORMAT)
         end_utc = end_utc.replace(tzinfo=from_zone)
         end = end_utc.astimezone(to_zone)
     else:
@@ -129,7 +113,7 @@ def calculate_totals(input_stream: IO) -> List[str]:
     ]
 
     # Compose table header.
-    if configuration["color"] == "on":
+    if config["color"] == "on":
         output.append("[4m{:{width}}[0m [4m{:>10}[0m".format("Tag", "Total", width=max_width))
     else:
         output.append("{:{width}} {:>10}".format("Tag", "Total", width=max_width))
@@ -150,7 +134,7 @@ def calculate_totals(input_stream: IO) -> List[str]:
         output.append("{:{width}} {:10}".format("", formatted, width=max_width))
 
     # Compose total.
-    if configuration["color"] == "on":
+    if config["color"] == "on":
         output.append("{} {}".format(" " * max_width, "[4m          [0m"))
     else:
         output.append("{} {}".format(" " * max_width, "----------"))
@@ -162,5 +146,6 @@ def calculate_totals(input_stream: IO) -> List[str]:
 
 
 if __name__ == "__main__":
-    for line in calculate_totals(sys.stdin):
+    config, intervals = parse_timewarrior_data(sys.stdin)
+    for line in calculate_totals(config, intervals):
         print(line)
