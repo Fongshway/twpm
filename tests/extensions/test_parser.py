@@ -1,8 +1,6 @@
 """
 Tests for Taskwarrior data parser.
 """
-import json
-
 from twpm.extensions.parser import parse_timewarrior_data
 
 
@@ -27,4 +25,8 @@ def test_parse_filled_database(filled_database):
         'temp.report.start': f'{start:%Y%m%dT%H%M%S}Z',
         'temp.report.end': f'{end:%Y%m%dT%H%M%S}Z',
     }
-    assert intervals == [{"start": f"{start:%Y%m%dT%H%M%S}Z", "end": f"{end:%Y%m%dT%H%M%S}Z", "tags": ["foo"]}]
+    assert intervals == [{
+        "start": f"{start:%Y%m%dT%H%M%S}Z",
+        "end": f"{end:%Y%m%dT%H%M%S}Z",
+        "tags": ["foo"],
+    }]
