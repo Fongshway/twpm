@@ -8,6 +8,19 @@ import pytest
 
 
 @pytest.fixture
+def empty_database():
+    input_stream = ''.join([
+        'color: off\n',
+        'debug: on\n',
+        'temp.report.start: \n',
+        'temp.report.end: \n',
+        '\n',
+        '[]',
+    ])
+    return StringIO(input_stream), None, None
+
+
+@pytest.fixture
 def filled_database():
     now = datetime.datetime.now()
     now_utc = now.utcnow()
