@@ -21,6 +21,12 @@ def parse_timewarrior_data(input_stream: StringIO) -> (dict, list):
         # Extract interval entries
         else:
             body += line
+    remap = {
+        'on': True,
+        'off': False,
+        '': None,
+    }
+    clean_config = {k: remap.get(v, v) for k, v in config.items()}
 
     intervals = json.loads(body)
-    return config, intervals
+    return clean_config, intervals
