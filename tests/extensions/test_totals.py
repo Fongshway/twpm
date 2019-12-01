@@ -171,7 +171,7 @@ def test_totals_with_interval_with_empty_tag_list():
     assert actual_output == expected_output
 
 
-def test_totals_with_open_interval(self):
+def test_totals_with_open_interval():
     """totals extension should handle open interval"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -202,7 +202,7 @@ def test_totals_with_open_interval(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_empty_database(self):
+def test_totals_colored_with_empty_database():
     """totals extension should report error on empty database (colored)"""
     input_stream = [
         'color: on\n',
@@ -217,7 +217,7 @@ def test_totals_colored_with_empty_database(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_filled_database(self):
+def test_totals_colored_with_filled_database():
     """totals extension should print report for filled database (colored)"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -247,7 +247,7 @@ def test_totals_colored_with_filled_database(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_emtpy_range(self):
+def test_totals_colored_with_emtpy_range():
     """totals extension should report error on emtpy range (colored)"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -268,7 +268,7 @@ def test_totals_colored_with_emtpy_range(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_interval_without_tags(self):
+def test_totals_colored_with_interval_without_tags():
     """totals extension should handle interval without tags (colored)"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -298,7 +298,7 @@ def test_totals_colored_with_interval_without_tags(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_interval_with_empty_tag_list(self):
+def test_totals_colored_with_interval_with_empty_tag_list():
     """totals extension should handle interval with empty tag list (colored)"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -328,7 +328,7 @@ def test_totals_colored_with_interval_with_empty_tag_list(self):
     assert actual_output == expected_output
 
 
-def test_totals_colored_with_open_interval(self):
+def test_totals_colored_with_open_interval():
     """totals extension should handle open interval (colored)"""
     now = datetime.datetime.now()
     one_hour_before = now - datetime.timedelta(hours=1)
@@ -358,21 +358,21 @@ def test_totals_colored_with_open_interval(self):
     assert actual_output == expected_output
 
 
-def test_format_seconds_with_less_than_1_minute(self):
+def test_format_seconds_with_less_than_1_minute():
     """Test format_seconds with less than 1 minute"""
-    self.assertEqual(format_seconds(34), '   0:00:34')
+    assert format_seconds(34) == '   0:00:34'
 
 
-def test_format_seconds_with_1_minute(self):
+def test_format_seconds_with_1_minute():
     """Test format_seconds with 1 minute"""
-    self.assertEqual(format_seconds(60), '   0:01:00')
+    assert format_seconds(60) == '   0:01:00'
 
 
-def test_format_seconds_with_1_hour(self):
+def test_format_seconds_with_1_hour():
     """Test format_seconds with 1 hour"""
-    self.assertEqual(format_seconds(3600), '   1:00:00')
+    assert format_seconds(3600) == '   1:00:00'
 
 
-def test_format_seconds_with_more_than_1_hour(self):
+def test_format_seconds_with_more_than_1_hour():
     """Test format_seconds with more than 1 hour"""
-    self.assertEqual(format_seconds(3645), '   1:00:45')
+    assert format_seconds(3645) == '   1:00:45'
