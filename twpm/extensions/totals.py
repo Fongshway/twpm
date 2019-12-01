@@ -31,7 +31,6 @@ import datetime
 import json
 import sys
 from typing import IO
-from typing import Any
 from typing import Dict
 from typing import List
 
