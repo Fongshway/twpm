@@ -5,13 +5,13 @@ from twpm.extensions.parser import parse_timewarrior_data
 
 
 def test_parse_empty_database(empty_database):
-    input_stream, start, end = empty_database
+    input_stream = empty_database
     config, intervals = parse_timewarrior_data(input_stream)
     assert config == {
         'color': False,
         'debug': True,
-        'temp.report.start': start,
-        'temp.report.end': end,
+        'temp.report.start': None,
+        'temp.report.end': None,
     }
     assert intervals == []
 

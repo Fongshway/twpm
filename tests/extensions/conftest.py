@@ -17,7 +17,7 @@ def empty_database():
         '\n',
         '[]',
     ])
-    return StringIO(input_stream), None, None
+    return StringIO(input_stream)
 
 
 @pytest.fixture
