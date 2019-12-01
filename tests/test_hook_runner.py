@@ -7,9 +7,9 @@ from datetime import datetime
 
 import six
 from dateutil.tz import tzutc
+
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
-
 from twpm.hook_runner import HookRunner
 
 NOW = datetime.now().replace(tzinfo=tzutc())

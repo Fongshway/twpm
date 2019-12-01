@@ -6,9 +6,9 @@ import uuid
 from datetime import datetime
 
 from dateutil.tz import tzutc
+
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
-
 from twpm.hooks import inbox_tag_hook
 
 NOW = datetime.now().replace(tzinfo=tzutc())
