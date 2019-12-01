@@ -19,8 +19,7 @@ def test_parse_timewarrior_data():
         '\n',
         f'[{{"start":"{one_hour_before_utc:%Y%m%dT%H%M%S}Z","end":"{now_utc:%Y%m%dT%H%M%S}Z","tags":["foo"]}}]',
     ])
-    input_io = StringIO(input_stream)
-    config, intervals = parse_timewarrior_data(input_stream)
+    config, intervals = parse_timewarrior_data(StringIO(input_stream))
     assert config == {
         'color': 'off',
         'debug': 'on',

@@ -2,16 +2,17 @@
 Parser for Taskwarrior data.
 """
 import json
+from io import StringIO
 
 
-def parse_timewarrior_data(input_stream: str) -> (dict, list):
+def parse_timewarrior_data(input_stream: StringIO) -> (dict, list):
     header = 1
     config = dict()
     body = ""
-    for line in input_stream.split('\n'):
+    for line in input_stream.readlines():
         # Extract the configuration settings.
         if header:
-            if line == "":
+            if line == "\n":
                 header = 0
             else:
                 fields = line.strip().split(": ", 2)
