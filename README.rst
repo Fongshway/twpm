@@ -3,13 +3,14 @@ twpm - Taskwarrior Plugin Manager
 
 Build Status
 ------------
-.. |master| image:: https://travis-ci.com/Fongshway/twpm.svg?branch=master
-   :alt: Build Status - master branch
-   :target: https://travis-ci.com/Fongshway/twpm/branches
 
-.. |develop| image:: https://travis-ci.com/Fongshway/twpm.svg?branch=develop
+.. |master| image:: https://dev.azure.com/Fongshway/twpm/_apis/build/status/twpm%20(Tests)?branchName=master
+   :alt: Build Status - master branch
+   :target: https://dev.azure.com/Fongshway/twpm/_build/latest?definitionId=3&branchName=master
+
+.. |develop| image:: https://dev.azure.com/Fongshway/twpm/_apis/build/status/twpm%20(Tests)?branchName=develop
    :alt: Build Status - develop branch
-   :target: https://travis-ci.com/Fongshway/twpm/branches
+   :target: https://dev.azure.com/Fongshway/twpm/_build/latest?definitionId=3&branchName=develop
 
 +----------+-----------+
 | Branch   | Status    |
