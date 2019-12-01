@@ -4,9 +4,13 @@ Parser for Taskwarrior data.
 import json
 import re
 from io import StringIO
+from typing import Tuple
 
 
-def parse_timewarrior_data(input_stream: StringIO) -> (dict, list):
+def parse_timewarrior_data(input_stream: StringIO) -> Tuple[dict, list]:
+    """
+    Parse data passed to report from timewarrior.
+    """
     header = 1
     config = dict()
     body = ""
@@ -16,8 +20,9 @@ def parse_timewarrior_data(input_stream: StringIO) -> (dict, list):
             if line == "\n":
                 header = 0
             else:
-                m = re.search('^([^:]+): (.*)$', line, re.MULTILINE)
-                config[m.group(1)] = m.group(2)
+                match = re.search('^([^:]+): (.*)$', line, re.MULTILINE)
+                if match:
+                    config[match.group(1)] = match.group(2)
         # Extract interval entries
         else:
             body += line
