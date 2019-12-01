@@ -22,8 +22,8 @@ def test_parse_timewarrior_data():
     input_io = StringIO(input_stream)
     config, intervals = parse_timewarrior_data(input_stream)
     assert config == {
-        'color': False,
-        'debug': True,
+        'color': 'off',
+        'debug': 'on',
         'temp.report.start': f'{one_hour_before_utc:%Y%m%dT%H%M%S}Z',
         'temp.report.end': f'{now_utc:%Y%m%dT%H%M%S}Z',
     }
