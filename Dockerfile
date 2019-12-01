@@ -4,7 +4,8 @@ FROM fongshway/python:production
 ################################################################################
 ENV PROJECT_DIR="/opt/twpm" \
     PYTHONPATH="${PYTHONPATH}:${PROJECT_DIR}" \
-    USER=twpm
+    USER=twpm \
+    TASKWARRIOR_VERSION=2.5.1+dfsg-7
 
 # -- Create non-root user:
 RUN useradd -ms /bin/bash ${USER} && \
@@ -15,10 +16,17 @@ RUN useradd -ms /bin/bash ${USER} && \
 
 # -- Create application directory:
 RUN set -ex && mkdir -p ${PROJECT_DIR}
+
 WORKDIR "${PROJECT_DIR}"
 
 USER ${USER}
 
-COPY . "$PROJECT_DIR"
+# -- Install taskwarrior:
+RUN sudo apt-get update && \
+    sudo apt-get install -y taskwarrior=${TASKWARRIOR_VERSION} && \
+    sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && \
+    touch /home/twpm/.taskrc
+
+COPY . "${PROJECT_DIR}"
 
 RUN sudo chown -R ${USER}: "${PROJECT_DIR}"
