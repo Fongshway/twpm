@@ -1,9 +1,10 @@
 """
 Tests for Taskwarrior data parser.
 """
-from twpm.extensions.parser import parse_timewarrior_data
 import datetime
 from io import StringIO
+
+from twpm.extensions.parser import parse_timewarrior_data
 
 
 def test_parse_timewarrior_data():
