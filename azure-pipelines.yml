@@ -1,0 +1,66 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  CONTAINER_REGISTRY: dockerHubRegistryServiceConnection
+  REPOSITORY: fongshway/twpm
+  REQUIREMENTS_INSTALL_CMD: pipenv install --dev --deploy --system
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+- task: Docker@2
+  displayName: Login to Docker Hub
+  inputs:
+    command: login
+    containerRegistry: $(CONTAINER_REGISTRY)
+
+- task: Docker@2
+  displayName: Build Docker image
+  inputs:
+    command: build
+    repository: $(REPOSITORY)
+    arguments: |
+      --build-arg REQUIREMENTS_INSTALL_CMD="$(REQUIREMENTS_INSTALL_CMD)"
+      --no-cache
+      --force-rm
+      --label twpm
+    tags: |
+      develop
+
+- script: |
+    docker-compose up -d
+
+    while [[ -z "$(docker-compose ps -q twpm)" ]]; do
+      echo "The service is unavailable - sleeping"
+      sleep 2
+    done
+  displayName: Tests setup
+
+- script: |
+    docker exec twpm bash -c "./bin/mypy-runner"
+  displayName: mypy
+
+- script: |
+    docker exec twpm bash -c "./bin/pytest-runner"
+  displayName: pytest
+
+- script: |
+    docker exec twpm bash -c "./bin/pylint-runner"
+  displayName: pylint
+
+- script: |
+    docker exec twpm bash -c "./bin/yapf-linter"
+  displayName: yapf
+
+- script: |
+    docker exec twpm bash -c "./bin/isort-linter"
+  displayName: isort
+
+- task: Docker@2
+  displayName: Logout of Docker Hub
+  inputs:
+    command: logout
+    containerRegistry: $(CONTAINER_REGISTRY)
