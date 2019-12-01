@@ -1,0 +1,48 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  CONTAINER_REGISTRY: dockerHubRegistryServiceConnection
+  REPOSITORY: fongshway/twpm
+  REQUIREMENTS_INSTALL_CMD: pipenv install --dev --deploy --system
+  TAG: develop
+
+trigger:
+- develop
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+- task: Docker@2
+  displayName: Login to Docker Hub
+  inputs:
+    command: login
+    containerRegistry: $(CONTAINER_REGISTRY)
+
+- task: Docker@2
+  displayName: Build Docker image
+  inputs:
+    command: build
+    repository: $(REPOSITORY)
+    arguments: |
+      --build-arg REQUIREMENTS_INSTALL_CMD="$(REQUIREMENTS_INSTALL_CMD)"
+      --no-cache
+      --force-rm
+      --label twpm
+    tags: $(TAG)
+
+- task: Docker@2
+  displayName: Push Docker image
+  inputs:
+    containerRegistry: $(CONTAINER_REGISTRY)
+    repository: $(REPOSITORY)
+    command: push
+    tags: $(TAG)
+
+- task: Docker@2
+  displayName: Logout of Docker Hub
+  inputs:
+    command: logout
+    containerRegistry: $(CONTAINER_REGISTRY)
