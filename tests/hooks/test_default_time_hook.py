@@ -9,9 +9,9 @@ from datetime import timedelta
 import pytz
 from dateutil import tz
 from dateutil.tz import tzutc
+
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
-
 from twpm.hooks import default_time_hook
 from twpm.hooks.default_time_hook import DEFAULT_TIME
 

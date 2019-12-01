@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import time
 
 from dateutil import tz
+
 from taskw.task import Task
 
 logger = logging.getLogger(__name__)
