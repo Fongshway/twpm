@@ -35,5 +35,5 @@ def main(task: Task) -> None:
     :param task: Task instance
     :return: None
     """
-    task['reviewed'] = set_default_time(datetime.now())
-    logger.info("Review date has been set to %s", task['reviewed'])
+    task["reviewed"] = set_default_time(datetime.now())
+    logger.info("Review date has been set to %s", task["reviewed"])
