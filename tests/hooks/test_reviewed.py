@@ -3,13 +3,13 @@ Test for setting reviewed UDA on modified tasks.
 """
 import uuid
 from datetime import datetime
+from datetime import timedelta
 
-import pytz
 from dateutil.tz import tzutc
 from taskw.fields import DateField
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
-from datetime import timedelta
+
 from twpm.hooks import reviewed_hook
 from twpm.hooks.reviewed_hook import DEFAULT_TIME
 
@@ -30,9 +30,9 @@ def test_reviewed():
     }
     test_task = Task(task_data, task_udas)
     reviewed_hook.main(test_task)
-    assert test_task['reviewed'] == NOW.replace(
+    assert test_task['reviewed'].strftime(DATE_FORMAT) == NOW.replace(
         hour=DEFAULT_TIME.hour,
         minute=DEFAULT_TIME.minute,
         second=DEFAULT_TIME.second,
         tzinfo=tzutc(),
-    )
+    ).strftime(DATE_FORMAT)
