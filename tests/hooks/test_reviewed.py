@@ -1,6 +1,7 @@
 """
-Test for setting reviewed UDA on modified tasks.
+Tests for hook to set reviewed date UDA on modified tasks.
 """
+# pylint: disable=missing-docstring
 import uuid
 from datetime import datetime
 from datetime import timedelta
