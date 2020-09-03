@@ -16,6 +16,7 @@ from taskw.task import Task
 from twpm.hooks import default_time_hook
 from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
+from twpm.hooks import reviewed_hook
 
 logger = logging.getLogger(__name__)
 
@@ -98,6 +99,8 @@ class HookRunner:
         example_hook.main(input_task)
         inbox_tag_hook.main(input_task)
         default_time_hook.main(input_task)
+        if self.event == 'on_modify':
+            reviewed_hook.main(input_task)
 
         # Write the final task to stdout after all active hooks have run
         print(self.to_output(input_task.serialized()))
