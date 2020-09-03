@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import time
 
 from dateutil.tz import tzutc
+
 from taskw.task import Task
 from taskw.utils import DATE_FORMAT
 
