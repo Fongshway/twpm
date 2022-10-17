@@ -1,18 +1,15 @@
 """
 Hook runner.
 """
-import json
 import logging
 import sys
 from typing import IO
 from typing import Union
 
 import six
-
 from taskw import TaskWarrior
-from taskw.fields import AnnotationArrayField
-from taskw.fields import ArrayField
 from taskw.task import Task
+
 from twpm.hooks import default_time_hook
 from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
@@ -69,22 +66,14 @@ class HookRunner:
         return task
 
     @staticmethod
-    def to_output(task: dict) -> str:
+    def to_output(task: Task) -> str:
         """
-        Convert serialized task representation to Taskwarrior JSON hook output
-        format.
+        Convert Task() to Taskwarrior JSON string hook output format.
 
-        :param task: serialized task
-        :return: Taskwarrior JSON
+        :param task: Task instance
+        :return: Taskwarrior JSON string
         """
-        fields = Task.FIELDS.copy()
-
-        for k, v in task.items():
-            field_type = fields.get(k, None)
-            if isinstance(field_type, ArrayField) and not isinstance(field_type, AnnotationArrayField):
-                task[k] = ','.join(v)
-
-        return json.dumps(task, separators=(',', ':'))
+        return str(task)
 
     def run(self) -> None:
         # pylint: disable=fixme
@@ -103,7 +92,7 @@ class HookRunner:
             reviewed_hook.main(input_task)
 
         # Write the final task to stdout after all active hooks have run
-        print(self.to_output(input_task.serialized()))
+        print(self.to_output(input_task))
 
         # Exit
         sys.exit(0)
