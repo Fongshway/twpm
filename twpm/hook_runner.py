@@ -14,6 +14,7 @@ from twpm.hooks import default_time_hook
 from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
 from twpm.hooks import reviewed_hook
+from twpm.hooks import tag_map_hook
 
 logger = logging.getLogger(__name__)
 
@@ -86,6 +87,7 @@ class HookRunner:
         # Run all active hooks
         # TODO Expose ability to define hooks in .taskrc (e.g. twpm.hooks = inbox_tag_hook,default_time_hook)
         example_hook.main(input_task)
+        tag_map_hook.main(input_task)
         inbox_tag_hook.main(input_task)
         default_time_hook.main(input_task)
         if self.event == 'on_modify':
