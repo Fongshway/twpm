@@ -57,7 +57,7 @@ def main(task: Task) -> None:
 
     if task_due_date.time() and is_local_midnight(task_due_date):
         task['due'] = set_default_time(task['due'])
-        logger.info("Default due time has been set to %s", task['due'])
+        logger.info("Default due time has been set to %s", task['due'].strftime("%Y-%m-%d %H:%M:%S %Z"))
 
     task_wait_date = task.get('wait', None)
 
@@ -67,4 +67,4 @@ def main(task: Task) -> None:
 
     if task_wait_date.time() and is_local_midnight(task_wait_date):
         task['wait'] = set_default_time(task['wait'])
-        logger.info("Default wait time has been set to %s", task['wait'])
+        logger.info("Default wait time has been set to %s", task['wait'].strftime("%Y-%m-%d %H:%M:%S %Z"))
