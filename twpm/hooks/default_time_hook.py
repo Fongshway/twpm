@@ -36,6 +36,7 @@ def set_default_time(timestamp: datetime) -> datetime:
         hour=DEFAULT_TIME.hour,
         minute=DEFAULT_TIME.minute,
         second=DEFAULT_TIME.second,
+        tzinfo=tz.tzlocal(),
     )
 
 

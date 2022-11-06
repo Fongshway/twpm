@@ -40,13 +40,13 @@ def test_default_time_midnight():
         hour=DEFAULT_TIME.hour,
         minute=DEFAULT_TIME.minute,
         second=DEFAULT_TIME.second,
-        tzinfo=tzutc(),
+        tzinfo=LOCAL_TZ,
     )
     assert test_task['wait'] == wait_date.replace(
         hour=DEFAULT_TIME.hour,
         minute=DEFAULT_TIME.minute,
         second=DEFAULT_TIME.second,
-        tzinfo=tzutc(),
+        tzinfo=LOCAL_TZ,
     )
 
 
