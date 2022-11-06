@@ -11,7 +11,6 @@ from taskw import TaskWarrior
 from taskw.task import Task
 
 from twpm.hooks import default_time_hook
-from twpm.hooks import example_hook
 from twpm.hooks import inbox_tag_hook
 from twpm.hooks import reviewed_hook
 from twpm.hooks import tag_map_hook
@@ -86,7 +85,6 @@ class HookRunner:
 
         # Run all active hooks
         # TODO Expose ability to define hooks in .taskrc (e.g. twpm.hooks = inbox_tag_hook,default_time_hook)
-        example_hook.main(input_task)
         tag_map_hook.main(input_task)
         inbox_tag_hook.main(input_task)
         default_time_hook.main(input_task)
