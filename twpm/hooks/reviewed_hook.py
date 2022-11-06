@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from datetime import time
 
-from dateutil.tz import tzutc
+from dateutil import tz
 
 from taskw.task import Task
 
@@ -26,7 +26,7 @@ def set_default_time(timestamp: datetime) -> datetime:
         minute=DEFAULT_TIME.minute,
         second=DEFAULT_TIME.second,
         microsecond=0,
-        tzinfo=tzutc(),
+        tzinfo=tz.tzlocal(),
     )
 
 
@@ -38,4 +38,4 @@ def main(task: Task) -> None:
     :return: None
     """
     task["reviewed"] = set_default_time(datetime.today())
-    logger.info("Reviewed date has been set to %s", task["reviewed"])
+    logger.info("Reviewed date has been set to %s", task["reviewed"].strftime("%Y-%m-%d %H:%M:%S %Z"))
