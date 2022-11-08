@@ -3,6 +3,7 @@ Next action hook tests.
 """
 # pylint: disable=missing-docstring
 import uuid
+from copy import copy
 from datetime import datetime
 from logging.config import dictConfig
 
@@ -73,6 +74,24 @@ def test_next_action_hook_with_next(taskwarrior, capsys):
     )
     next_action_hook.main(test_task, taskwarrior)
     assert "Project has a next action!" in capsys.readouterr().err
+
+
+def test_complete_next_action(taskwarrior, capsys):
+    """
+    Confirm hook fires properly when the next action in a project is completed.
+    """
+    dictConfig(LOGGING_CONFIG)
+
+    # Setup - seed taskwarrior data with tasks
+    taskwarrior.task_add("foobar", project="TEST")
+    test_task = taskwarrior.task_add("fizzbar", project="TEST", tags=["next"])
+    tasks = taskwarrior.load_tasks()
+    assert len(tasks["pending"]) == 2
+
+    completed_task = copy(test_task)
+    completed_task["status"] = "completed"
+    next_action_hook.main(completed_task, taskwarrior)
+    assert "Project does not have a next action!" in capsys.readouterr().err
 
 
 def test_next_action_hook_with_many_next(taskwarrior, capsys):
