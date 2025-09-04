@@ -5,9 +5,16 @@ on:
     branches: [main]
 
 jobs:
-  run-scripts:
+  lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
       - name: Set up Python environment with Pipenv
         run: |
           python3 -m pip install --upgrade pip
@@ -17,9 +24,6 @@ jobs:
       - name: Run mypy-runner
         run: ./bin/mypy-runner
 
-      - name: Run pytest-runner
-        run: ./bin/pytest-runner
-
       - name: Run pylint-runner
         run: ./bin/pylint-runner
 
@@ -28,3 +32,22 @@ jobs:
 
       - name: Run isort-linter
         run: ./bin/isort-linter
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Set up Python environment with Pipenv
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run pytest-runner
+        run: ./bin/pytest-runner
