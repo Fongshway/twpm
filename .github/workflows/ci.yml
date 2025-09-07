@@ -55,5 +55,12 @@ jobs:
           pip install pipenv
           pipenv install --dev
 
+      - name: Install taskwarrior
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y taskwarrior=2.5.1+dfsg-7
+          sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+          touch ~/.taskrc
+
       - name: Run pytest-runner
         run: pipenv run ./bin/pytest-runner
