@@ -28,16 +28,16 @@ jobs:
           pipenv install --dev
 
       - name: Run mypy-runner
-        run: ./bin/mypy-runner
+        run: pipenv run ./bin/mypy-runner
 
       - name: Run pylint-runner
-        run: ./bin/pylint-runner
+        run: pipenv run ./bin/pylint-runner
 
       - name: Run yapf-linter
-        run: ./bin/yapf-linter
+        run: pipenv run ./bin/yapf-linter
 
       - name: Run isort-linter
-        run: ./bin/isort-linter
+        run: pipenv run ./bin/isort-linter
 
   test:
     runs-on: ubuntu-latest
@@ -56,4 +56,4 @@ jobs:
           pipenv install --dev
 
       - name: Run pytest-runner
-        run: ./bin/pytest-runner
+        run: pipenv run ./bin/pytest-runner
