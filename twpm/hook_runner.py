@@ -4,6 +4,7 @@ Hook runner.
 import logging
 import sys
 from typing import IO
+from typing import Optional
 from typing import Union
 
 import six
@@ -42,7 +43,7 @@ class HookRunner:
     Hook runner.
     """
 
-    def __init__(self, event: str, tw: TaskWarrior = TaskWarrior()) -> None:
+    def __init__(self, event: str, tw: Optional[TaskWarrior] = None) -> None:
         """
         Create an instance of HookRunner.
 
@@ -50,6 +51,8 @@ class HookRunner:
         :param tw: Taskwarrior instance
         """
         self.event = event
+        if tw is None:
+            tw = TaskWarrior()
         self.tw = tw
 
     def from_input(self, hook_input: Union[IO[str], six.StringIO] = sys.stdin) -> Task:
