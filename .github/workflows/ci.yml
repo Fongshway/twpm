@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - develop
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -58,8 +59,7 @@ jobs:
       - name: Install taskwarrior
         run: |
           sudo apt-get update
-          sudo apt-get install -y taskwarrior=2.5.1+dfsg-7
-          sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get install -y taskwarrior
           touch ~/.taskrc
 
       - name: Run pytest-runner
