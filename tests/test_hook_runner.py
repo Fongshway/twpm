@@ -82,10 +82,10 @@ def test_to_output(tw):
             '"status":"pending",',
             '"description":"Fix tw-98765 \N{winking face}",',
             '"tags":"in,next",',
-            '"modified":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"entry":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"reviewed":"{}",'.format(NOW.strftime(DATE_FORMAT)),
-            '"uuid":"{}"'.format(test_uuid),
+            f'"modified":"{NOW.strftime(DATE_FORMAT)}",',
+            f'"entry":"{NOW.strftime(DATE_FORMAT)}",',
+            f'"reviewed":"{NOW.strftime(DATE_FORMAT)}",',
+            f'"uuid":"{test_uuid}"',
             '}',
         ]
     )

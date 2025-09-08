@@ -5,6 +5,6 @@ set -e
 
 function run()
 {
-    pylint twpm tests
+    pylint --rcfile pylintrc.toml twpm tests
 }
 run

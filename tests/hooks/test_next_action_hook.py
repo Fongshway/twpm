@@ -1,7 +1,7 @@
 """
 Next action hook tests.
 """
-# pylint: disable=missing-docstring
+# pylint: disable=missing-docstring,redefined-outer-name
 import uuid
 from copy import copy
 from datetime import datetime

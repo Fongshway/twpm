@@ -3,7 +3,6 @@ Log things for logging purposes.
 """
 import logging
 import sys
-from typing import Union
 
 LOG_FORMAT = '%(asctime)s [%(levelname)s] (%(name)s:%(lineno)d) - %(message)s'
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -14,7 +13,7 @@ class Logger:
     Logger.
     """
 
-    def __init__(self, logger_name: str, log_level: Union[int, str] = logging.INFO) -> None:
+    def __init__(self, logger_name: str, log_level: int | str = logging.INFO) -> None:
         """
         :param logger_name: logger name
         :param log_level: log level

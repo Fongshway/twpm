@@ -7,7 +7,6 @@ function run()
 {
     isort \
         --settings-path .isort.cfg \
-        --recursive \
         --diff \
         --check-only \
         twpm tests

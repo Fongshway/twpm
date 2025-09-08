@@ -24,6 +24,6 @@ def main(task: Task) -> None:
         logger.info("Task had no context tag - inbox tag has be applied")
 
     # Handle case when task has context tag and inbox tag.
-    elif any('@' in t for t in task_tags) and u'in' in task_tags:
+    elif any('@' in t for t in task_tags) and 'in' in task_tags:
         task['tags'].remove('in')
         logger.info("Task had both context and inbox tags - inbox tag has been removed.")

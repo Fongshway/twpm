@@ -40,6 +40,5 @@ def main(task: Task) -> None:
     reviewed_today = set_default_time(datetime.today())
     if task_reviewed == reviewed_today:
         return
-    else:
-        task["reviewed"] = reviewed_today
-        logger.info("Reviewed date has been set to %s", task["reviewed"].strftime("%Y-%m-%d %H:%M:%S %Z"))
+    task["reviewed"] = reviewed_today
+    logger.info("Reviewed date has been set to %s", task["reviewed"].strftime("%Y-%m-%d %H:%M:%S %Z"))

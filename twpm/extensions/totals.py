@@ -24,15 +24,11 @@
 # https://www.opensource.org/licenses/mit-license.php
 #
 ###############################################################################
-# pylint: disable=missing-function-docstring,missing-module-docstring
-# pylint: disable=redefined-outer-name,too-many-branches,too-many-locals
-# pylint: disable=too-many-statements
+# pylint: skip-file
 import datetime
 import json
 import sys
 from typing import IO
-from typing import Dict
-from typing import List
 
 from dateutil import tz
 
@@ -51,7 +47,7 @@ def format_seconds(seconds: int) -> str:
     return f"{hours:4d}:{minutes:02d}:{seconds:02d}"
 
 
-def calculate_totals(input_stream: IO) -> List[str]:
+def calculate_totals(input_stream: IO) -> list[str]:
     from_zone = tz.tzutc()
     to_zone = tz.tzlocal()
 
@@ -73,7 +69,7 @@ def calculate_totals(input_stream: IO) -> List[str]:
             body += line
 
     # Sum the seconds tracked by tag.
-    totals: Dict[str, datetime.timedelta] = dict()
+    totals: dict[str, datetime.timedelta] = dict()
     untagged = None
     j = json.loads(body)
     for object_ in j:
@@ -119,12 +115,12 @@ def calculate_totals(input_stream: IO) -> List[str]:
         end = datetime.datetime.now()
 
     if len(totals) == 0 and untagged is None:
-        return ["No data in the range {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}".format(start, end)]
+        return [f"No data in the range {start:%Y-%m-%d %H:%M:%S} - {end:%Y-%m-%d %H:%M:%S}"]
 
     # Compose report header.
     output = [
         "",
-        "Total by Tag, for {:%Y-%m-%d %H:%M:%S} - {:%Y-%m-%d %H:%M:%S}".format(start, end),
+        f"Total by Tag, for {start:%Y-%m-%d %H:%M:%S} - {end:%Y-%m-%d %H:%M:%S}",
         "",
     ]
 

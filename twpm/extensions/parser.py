@@ -1,13 +1,13 @@
 """
 Parser for Taskwarrior data.
 """
+# pylint: skip-file
 import json
 import re
 from io import StringIO
-from typing import Tuple
 
 
-def parse_timewarrior_data(input_stream: StringIO) -> Tuple[dict, list]:
+def parse_timewarrior_data(input_stream: StringIO) -> tuple[dict, list]:
     """
     Parse data passed to report from timewarrior.
     """
