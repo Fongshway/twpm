@@ -2,7 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -13,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.11'
 
       - name: Set up Python environment with Pipenv
         run: |
@@ -22,16 +29,16 @@ jobs:
           pipenv install --dev
 
       - name: Run mypy-runner
-        run: ./bin/mypy-runner
+        run: pipenv run ./bin/mypy-runner
 
       - name: Run pylint-runner
-        run: ./bin/pylint-runner
+        run: pipenv run ./bin/pylint-runner
 
       - name: Run yapf-linter
-        run: ./bin/yapf-linter
+        run: pipenv run ./bin/yapf-linter
 
       - name: Run isort-linter
-        run: ./bin/isort-linter
+        run: pipenv run ./bin/isort-linter
 
   test:
     runs-on: ubuntu-latest
@@ -41,7 +48,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.11'
 
       - name: Set up Python environment with Pipenv
         run: |
@@ -49,5 +56,11 @@ jobs:
           pip install pipenv
           pipenv install --dev
 
+      - name: Install taskwarrior
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y taskwarrior
+          touch ~/.taskrc
+
       - name: Run pytest-runner
-        run: ./bin/pytest-runner
+        run: pipenv run ./bin/pytest-runner

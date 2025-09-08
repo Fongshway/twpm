@@ -27,7 +27,7 @@ def main(task: Task, tw: TaskWarrior) -> None:
         with suppress(ValueError):
             task_tags.remove("next")
 
-    tag_counter = Counter()
+    tag_counter: Counter = Counter()
     if task_tags:
         for tag in task_tags:
             tag_counter[tag] += 1
@@ -37,9 +37,7 @@ def main(task: Task, tw: TaskWarrior) -> None:
         "project": task_project,
     }
     project_tasks = [
-        filtered_task
-        for filtered_task in tw.filter_tasks(task_filter)
-        if filtered_task["uuid"] != task["uuid"]
+        filtered_task for filtered_task in tw.filter_tasks(task_filter) if filtered_task["uuid"] != task["uuid"]
     ]
 
     for project_task in project_tasks:
