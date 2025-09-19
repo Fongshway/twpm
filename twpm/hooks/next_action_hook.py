@@ -5,8 +5,8 @@ import logging
 from collections import Counter
 from contextlib import suppress
 
-from taskw.task import Task
-from taskw.warrior import TaskWarrior
+from taskw_ng.task import Task
+from taskw_ng.warrior import TaskWarrior
 
 logger = logging.getLogger(__name__)
 

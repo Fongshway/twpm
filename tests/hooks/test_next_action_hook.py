@@ -9,9 +9,9 @@ from logging.config import dictConfig
 
 import pytest
 from dateutil.tz import tzutc
-from taskw.task import Task
-from taskw.utils import DATE_FORMAT
-from taskw.warrior import TaskWarrior
+from taskw_ng.task import Task
+from taskw_ng.utils import DATE_FORMAT
+from taskw_ng.warrior import TaskWarrior
 
 from twpm.hooks import next_action_hook
 

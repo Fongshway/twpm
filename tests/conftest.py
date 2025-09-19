@@ -7,7 +7,7 @@ import shutil
 import tempfile
 
 import pytest
-from taskw import TaskWarrior
+from taskw_ng import TaskWarrior
 
 
 @pytest.fixture

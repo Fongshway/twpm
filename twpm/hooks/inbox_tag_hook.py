@@ -3,7 +3,7 @@ Hook to help flag tasks without a context.
 """
 import logging
 
-from taskw.task import Task
+from taskw_ng.task import Task
 
 logger = logging.getLogger(__name__)
 

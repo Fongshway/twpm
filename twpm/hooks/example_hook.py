@@ -4,7 +4,7 @@ Example hook adapted from https://taskwarrior.org/docs/hooks_guide.html.
 import logging
 import re
 
-from taskw.task import Task
+from taskw_ng.task import Task
 
 logger = logging.getLogger(__name__)
 

@@ -4,7 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-taskw = "*"
+twpm = {editable = true, path = "."}
+six = "*"
+taskw-ng = "*"
 
 [dev-packages]
 docformatter = "*"

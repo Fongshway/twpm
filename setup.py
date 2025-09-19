@@ -14,7 +14,8 @@ VERSION = None
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    "taskw",
+    "six",
+    "taskw-ng",
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -40,7 +41,7 @@ setup(
     packages=find_packages(exclude=('tests', 'tests.*',)),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.11"
     ],
     entry_points={
         'console_scripts': [
