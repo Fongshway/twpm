@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 
 from dateutil.tz import tzutc
-from taskw.task import Task
+from taskw_ng.task import Task
 
 from twpm.hooks import example_hook
 

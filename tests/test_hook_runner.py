@@ -7,8 +7,8 @@ from datetime import datetime
 
 import six
 from dateutil.tz import tzutc
-from taskw.task import Task
-from taskw.utils import DATE_FORMAT
+from taskw_ng.task import Task
+from taskw_ng.utils import DATE_FORMAT
 
 from twpm.hook_runner import HookRunner
 

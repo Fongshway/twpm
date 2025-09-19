@@ -7,9 +7,9 @@ from datetime import datetime
 from datetime import timedelta
 
 from dateutil.tz import tzlocal
-from taskw.fields import DateField
-from taskw.task import Task
-from taskw.utils import DATE_FORMAT
+from taskw_ng.fields import DateField
+from taskw_ng.task import Task
+from taskw_ng.utils import DATE_FORMAT
 
 from twpm.hooks import reviewed_hook
 from twpm.hooks.reviewed_hook import DEFAULT_TIME

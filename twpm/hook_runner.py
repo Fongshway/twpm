@@ -7,11 +7,11 @@ import sys
 import typing
 
 import six
-from taskw import TaskWarrior
-from taskw.fields import AnnotationArrayField
-from taskw.fields import ArrayField
-from taskw.task import Task
-from taskw.utils import DATE_FORMAT
+from taskw_ng import TaskWarrior
+from taskw_ng.fields import AnnotationArrayField
+from taskw_ng.fields import ArrayField
+from taskw_ng.task import Task
+from taskw_ng.utils import DATE_FORMAT
 
 from twpm.hooks import default_time_hook
 from twpm.hooks import inbox_tag_hook
