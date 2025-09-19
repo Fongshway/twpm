@@ -1,13 +1,17 @@
 """
 Hook runner.
 """
+import json
 import logging
 import sys
 from typing import IO
 
 import six
 from taskw import TaskWarrior
+from taskw.fields import AnnotationArrayField
+from taskw.fields import ArrayField
 from taskw.task import Task
+from taskw.utils import DATE_FORMAT
 
 from twpm.hooks import default_time_hook
 from twpm.hooks import inbox_tag_hook
@@ -75,7 +79,22 @@ class HookRunner:
         :param task: Task instance
         :return: Taskwarrior JSON string
         """
-        return str(task)
+        serialized_task = {}
+        for k, v in task.items():
+            field_type = task._fields.get(k, None)
+            if isinstance(field_type, ArrayField) and not isinstance(field_type, AnnotationArrayField):
+                serialized_task[k] = ','.join(task._serialize(k, v, task._fields))  # pylint: disable=protected-access
+            elif isinstance(field_type, AnnotationArrayField):
+                annotations = [
+                    {
+                        "entry": annotation.entry.strftime(DATE_FORMAT),
+                        "description": annotation
+                    } for annotation in v
+                ]
+                serialized_task[k] = annotations
+            else:
+                serialized_task[k] = task._serialize(k, v, task._fields)  # pylint: disable=protected-access
+        return json.dumps(serialized_task, separators=(',', ':'), ensure_ascii=False)
 
     def run(self) -> None:
         # pylint: disable=fixme
