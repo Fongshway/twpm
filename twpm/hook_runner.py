@@ -4,7 +4,7 @@ Hook runner.
 import json
 import logging
 import sys
-from typing import IO
+import typing
 
 import six
 from taskw import TaskWarrior
@@ -57,7 +57,7 @@ class HookRunner:
             tw = TaskWarrior()
         self.tw = tw
 
-    def from_input(self, hook_input: IO[str] | six.StringIO = sys.stdin) -> Task:
+    def from_input(self, hook_input: typing.IO[str] | six.StringIO = sys.stdin) -> Task:
         """
         Load task from input.
 
@@ -67,9 +67,9 @@ class HookRunner:
         udas = self.tw.config.get_udas()
         if self.event == 'on_modify':
             task = Task.from_input(hook_input, modify=True, udas=udas)
-            return task
+            return typing.cast(Task, task)
         task = Task.from_input(hook_input, modify=False, udas=udas)
-        return task
+        return typing.cast(Task, task)
 
     @staticmethod
     def to_output(task: Task) -> str:
@@ -79,7 +79,7 @@ class HookRunner:
         :param task: Task instance
         :return: Taskwarrior JSON string
         """
-        serialized_task = {}
+        serialized_task: dict[str, typing.Any] = {}
         for k, v in task.items():
             field_type = task._fields.get(k, None)
             if isinstance(field_type, ArrayField) and not isinstance(field_type, AnnotationArrayField):
