@@ -16,6 +16,7 @@ VERSION = None
 REQUIRED = [
     "six",
     "taskw-ng",
+    "typer",
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -45,6 +46,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
+            'twpm = twpm.cli:app',
             'on-add-twpm=twpm.hook_runner:on_add_runner',
             'on-modify-twpm=twpm.hook_runner:on_modify_runner',
         ],
