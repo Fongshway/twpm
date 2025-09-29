@@ -14,6 +14,7 @@ from taskw_ng.task import Task
 from taskw_ng.utils import DATE_FORMAT
 
 from twpm.hooks import default_time_hook
+from twpm.hooks import due_after_scheduled_time_hook
 from twpm.hooks import inbox_tag_hook
 from twpm.hooks import next_action_hook
 from twpm.hooks import reviewed_hook
@@ -109,6 +110,7 @@ class HookRunner:
         tag_map_hook.main(input_task)
         inbox_tag_hook.main(input_task)
         default_time_hook.main(input_task)
+        due_after_scheduled_time_hook.main(input_task)
         next_action_hook.main(input_task, self.tw)
         if self.event == 'on_modify':
             reviewed_hook.main(input_task)
