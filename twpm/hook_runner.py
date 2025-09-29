@@ -10,6 +10,7 @@ import six
 from taskw_ng import TaskWarrior
 from taskw_ng.fields import AnnotationArrayField
 from taskw_ng.fields import ArrayField
+from taskw_ng.fields import StringField
 from taskw_ng.task import Task
 from taskw_ng.utils import DATE_FORMAT
 
@@ -93,6 +94,14 @@ class HookRunner:
                     } for annotation in v
                 ]
                 serialized_task[k] = annotations
+            elif isinstance(field_type, StringField):
+                if v is None:
+                    serialized_task[k] = v
+                if not isinstance(v, str):
+                    string_value = str(v)
+                    logger.debug("Value %s serialized to string as '%s'", repr(v), string_value)
+                    v = string_value
+                serialized_task[k] = v
             else:
                 serialized_task[k] = task._serialize(k, v, task._fields)  # pylint: disable=protected-access
         return json.dumps(serialized_task, separators=(',', ':'), ensure_ascii=False)

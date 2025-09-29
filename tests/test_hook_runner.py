@@ -67,7 +67,7 @@ def test_to_output(tw):
                 'description': 'yoooooo'
             }],
             'status': 'pending',
-            'description': 'Fix tw-98765 \N{winking face}',
+            'description': 'Fix tw-98765 [\N{winking face}]',
             'tags': ['in', 'next'],
             'modified': NOW.strftime(DATE_FORMAT),
             'entry': NOW.strftime(DATE_FORMAT),
@@ -80,7 +80,7 @@ def test_to_output(tw):
             '{',
             '"annotations":[{"entry":"20190103T051020Z","description":"yoooooo"}],',
             '"status":"pending",',
-            '"description":"Fix tw-98765 \N{winking face}",',
+            '"description":"Fix tw-98765 [\N{winking face}]",',
             '"tags":"in,next",',
             f'"modified":"{NOW.strftime(DATE_FORMAT)}",',
             f'"entry":"{NOW.strftime(DATE_FORMAT)}",',
